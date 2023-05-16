@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="PROFILINGMAPPINGDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="PROFILINGMAPPINGDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="TBL_ADMIN">
           <Key>
             <PropertyRef Name="ADMINID" />
@@ -37,6 +37,8 @@
           <Property Name="CREATEDBY" Type="nvarchar" MaxLength="50" />
           <Property Name="UPDATEDDATE" Type="datetime" />
           <Property Name="UPDATEDBY" Type="nvarchar" MaxLength="50" />
+          <Property Name="BIRTHDATE" Type="datetime" />
+          <Property Name="AGE" Type="int" />
         </EntityType>
         <EntityType Name="TBL_REQUEST">
           <Key>
@@ -71,8 +73,7 @@
             <End Role="TBL_REQUEST" EntitySet="TBL_REQUEST" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PROFILINGMAPPINGDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -109,6 +110,8 @@
           <Property Name="UPDATEDDATE" Type="DateTime" Precision="3" />
           <Property Name="UPDATEDBY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="TBL_REQUEST" Relationship="Self.FK_TBL_REQUEST_NAMEID" FromRole="TBL_NAMES" ToRole="TBL_REQUEST" />
+          <Property Name="BIRTHDATE" Type="DateTime" Precision="3" />
+          <Property Name="AGE" Type="Int32" />
         </EntityType>
         <EntityType Name="TBL_REQUEST">
           <Key>
@@ -169,6 +172,8 @@
           <EntitySetMapping Name="TBL_NAMES">
             <EntityTypeMapping TypeName="PROFILINGMAPPINGDBModel.TBL_NAMES">
               <MappingFragment StoreEntitySet="TBL_NAMES">
+                <ScalarProperty Name="AGE" ColumnName="AGE" />
+                <ScalarProperty Name="BIRTHDATE" ColumnName="BIRTHDATE" />
                 <ScalarProperty Name="NAMEID" ColumnName="NAMEID" />
                 <ScalarProperty Name="FIRSTNAME" ColumnName="FIRSTNAME" />
                 <ScalarProperty Name="MIDDLENAME" ColumnName="MIDDLENAME" />
