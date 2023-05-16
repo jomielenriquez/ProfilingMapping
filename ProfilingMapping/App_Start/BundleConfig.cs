@@ -14,6 +14,16 @@ namespace ProfilingMapping
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
 
+            bundles.Add(new ScriptBundle("~/bundles/Table").Include(
+                        "~/Scripts/jquery.dataTables.min.js",
+                        "~/Scripts/dataTables.bootstrap5.min.js"));
+
+            bundles.Add(new StyleBundle("~/bundles/Table_Style").Include(
+                        "~/Content/dataTables.bootstrap5.min.css"//,
+                                                                 //"~/Content/Custom.css",
+                                                                 //"~/Content/glitter.css"
+                        ));
+
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at https://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(

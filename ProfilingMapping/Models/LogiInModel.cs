@@ -16,5 +16,8 @@ namespace ProfilingMapping.Models
             }
         }
         public TBL_ADMIN CurrenUserProfile { get; set; }
+
+        public IEnumerable<TBL_NAMES> ListOfNames { get; set; }
+        public TBL_NAMES SelectedNames { get; set; }
     }
 }
