@@ -11,6 +11,7 @@ namespace ProfilingMapping.Controllers
     public class LoginController : Controller
     {
         public static string errorMessage = string.Empty;
+
         public ActionResult Login()
         {
             ViewBag.ErrorMessage = errorMessage;
