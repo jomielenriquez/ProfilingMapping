@@ -20,6 +20,12 @@ namespace ProfilingMapping.Controllers
             return View();
         }
 
+        public ActionResult LogOut()
+        {
+            LogiInModel.adminID = new Guid();
+            return RedirectToAction("../Login/Login");
+        }
+
         public ActionResult About()
         {
             if (LogiInModel.adminID == Guid.Empty)
