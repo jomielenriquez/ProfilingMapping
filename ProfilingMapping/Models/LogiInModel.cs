@@ -5,8 +5,15 @@ using System.Web;
 
 namespace ProfilingMapping.Models
 {
-    public static class LogiInModel
+    public class LogiInModel
     {
         public static Guid adminID { get; set; }
+        public static string FullName {
+            get { 
+                PROFILINGMAPPINGDBEntities entities = new PROFILINGMAPPINGDBEntities();
+                var name = (from names in entities.TBL_ADMIN.Where(admin => admin.ADMINID == adminID) select names).FirstOrDefault();
+                return name.FIRSTNAME + " " + name.LASTNAME; 
+            }
+        }
     }
 }

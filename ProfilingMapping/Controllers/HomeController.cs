@@ -16,7 +16,7 @@ namespace ProfilingMapping.Controllers
                 LoginController.errorMessage = "No Session. Please Login...";
                 return RedirectToAction("../Login/Login");
             }
-
+            ViewBag.FullName = LogiInModel.FullName;
             return View();
         }
 
