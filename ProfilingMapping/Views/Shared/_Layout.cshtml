@@ -6,6 +6,9 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Styles.Render("~/bundles/Table_Style")
+    @Scripts.Render("~/bundles/Table")
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css">
 </head>
 <body>
@@ -19,7 +22,7 @@
             <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
                     <li><a class="nav-link" href="@Url.Action("ProfileSettings","Settings")"><i class="icon-user"></i> @ViewBag.FullName</a></li>
-                    <li><a class="nav-link" href="@Url.Action("ListScreen","CourseSection")"><i class="icon-list"></i> Profiles</a></li>
+                    <li><a class="nav-link" href="@Url.Action("ListScreen","Names")"><i class="icon-list"></i> Profiles</a></li>
                     <li><a class="nav-link" href="@Url.Action("ListScreen","CourseSection")"><i class="icon-bookmark"></i> Request</a></li>
                     <li><a class="nav-link" href="@Url.Action("LogOut","Home")"><i class="icon-signout"></i> Logout</a></li>
                 </ul>
@@ -34,7 +37,6 @@
         </footer>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>

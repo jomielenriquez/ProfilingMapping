@@ -1,0 +1,52 @@
+﻿@model ProfilingMapping.Models.LogiInModel
+@{
+    ViewBag.Title = "ListScreen";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("Delete", "AdminUser", FormMethod.Post, new { @name = "AdminUserForm" }))
+{
+    <legend>Admin Users</legend>
+
+    <table id="AdminUserType" class="table table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th style="width: 25px;">
+                    @*<input type="checkbox" id="AreChecked" />*@
+                </th>
+                <th>Full Name</th>
+                <th>Address</th>
+                <th class="hidden">ID</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (ProfilingMapping.Models.TBL_NAMES names in Model.ListOfNames)
+            {
+                <tr>
+                    <td><input type="checkbox" name="AreChecked" value="@names.NAMEID" /></td>
+                    <td><a href="@Url.Action("EditScreen","AdminUser", new { AdminUserID = (names.NAMEID)})">@names.FIRSTNAME @names.LASTNAME</a></td>
+                    <td>@names.STREET @names.SUBDIVISION @names.BARANGAY @names.CITY @names.PROVINCE</td>
+                    <td class="hidden">@names.NAMEID</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <p class="bs-component">
+        <a class="btn btn-primary" href="@Url.Action("EditScreen","AdminUser")"><i class="icon-plus"></i>  Add</a>
+        <button type="submit" class="btn btn-danger"><i class="icon-trash"></i>  Delete</button>
+    </p>
+}
+
+<script>
+    $(document).ready(function () {
+        $('#AdminUserType').DataTable({
+            "columnDefs": [
+                { "orderable": false, "targets": 0 }
+            ],
+            order: [[1, 'asc']],
+            "pagingType": $(".container-fluid").width() <= 480 ? "simple" : "simple_numbers"
+        });
+    });
+</script>
+
