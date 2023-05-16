@@ -15,5 +15,6 @@ namespace ProfilingMapping.Models
                 return name.FIRSTNAME + " " + name.LASTNAME; 
             }
         }
+        public TBL_ADMIN CurrenUserProfile { get; set; }
     }
 }
