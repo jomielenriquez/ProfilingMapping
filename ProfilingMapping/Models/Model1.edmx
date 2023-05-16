@@ -1,0 +1,224 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="PROFILINGMAPPINGDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="TBL_ADMIN">
+          <Key>
+            <PropertyRef Name="ADMINID" />
+          </Key>
+          <Property Name="ADMINID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FIRSTNAME" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MIDDLENAME" Type="nvarchar" MaxLength="50" />
+          <Property Name="LASTNAME" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="USERNAME" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PASSWORD" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CREATEDDATE" Type="datetime" Nullable="false" />
+          <Property Name="CREATEDBY" Type="nvarchar" MaxLength="50" />
+          <Property Name="UPDATEDDATE" Type="datetime" />
+          <Property Name="UPDATEDBY" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TBL_NAMES">
+          <Key>
+            <PropertyRef Name="NAMEID" />
+          </Key>
+          <Property Name="NAMEID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FIRSTNAME" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MIDDLENAME" Type="nvarchar" MaxLength="50" />
+          <Property Name="LASTNAME" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="STREET" Type="nvarchar" MaxLength="150" />
+          <Property Name="SUBDIVISION" Type="nvarchar" MaxLength="150" />
+          <Property Name="BARANGAY" Type="nvarchar" MaxLength="150" />
+          <Property Name="CITY" Type="nvarchar" MaxLength="150" />
+          <Property Name="PROVINCE" Type="nvarchar" MaxLength="150" />
+          <Property Name="CREATEDDATE" Type="datetime" Nullable="false" />
+          <Property Name="CREATEDBY" Type="nvarchar" MaxLength="50" />
+          <Property Name="UPDATEDDATE" Type="datetime" />
+          <Property Name="UPDATEDBY" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TBL_REQUEST">
+          <Key>
+            <PropertyRef Name="REQUESTID" />
+          </Key>
+          <Property Name="REQUESTID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="NAMEID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="COMMENT" Type="nvarchar" MaxLength="500" />
+          <Property Name="CREATEDDATE" Type="datetime" Nullable="false" />
+          <Property Name="CREATEDBY" Type="nvarchar" MaxLength="50" />
+          <Property Name="UPDATEDDATE" Type="datetime" />
+          <Property Name="UPDATEDBY" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_TBL_REQUEST_NAMEID">
+          <End Role="TBL_NAMES" Type="Self.TBL_NAMES" Multiplicity="1" />
+          <End Role="TBL_REQUEST" Type="Self.TBL_REQUEST" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_NAMES">
+              <PropertyRef Name="NAMEID" />
+            </Principal>
+            <Dependent Role="TBL_REQUEST">
+              <PropertyRef Name="NAMEID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PROFILINGMAPPINGDBModelStoreContainer">
+          <EntitySet Name="TBL_ADMIN" EntityType="Self.TBL_ADMIN" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_NAMES" EntityType="Self.TBL_NAMES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_REQUEST" EntityType="Self.TBL_REQUEST" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_TBL_REQUEST_NAMEID" Association="Self.FK_TBL_REQUEST_NAMEID">
+            <End Role="TBL_NAMES" EntitySet="TBL_NAMES" />
+            <End Role="TBL_REQUEST" EntitySet="TBL_REQUEST" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PROFILINGMAPPINGDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="TBL_ADMIN">
+          <Key>
+            <PropertyRef Name="ADMINID" />
+          </Key>
+          <Property Name="ADMINID" Type="Guid" Nullable="false" />
+          <Property Name="FIRSTNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MIDDLENAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LASTNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="USERNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PASSWORD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CREATEDDATE" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CREATEDBY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UPDATEDDATE" Type="DateTime" Precision="3" />
+          <Property Name="UPDATEDBY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="TBL_NAMES">
+          <Key>
+            <PropertyRef Name="NAMEID" />
+          </Key>
+          <Property Name="NAMEID" Type="Guid" Nullable="false" />
+          <Property Name="FIRSTNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MIDDLENAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LASTNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="STREET" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="SUBDIVISION" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="BARANGAY" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="CITY" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="PROVINCE" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="CREATEDDATE" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CREATEDBY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UPDATEDDATE" Type="DateTime" Precision="3" />
+          <Property Name="UPDATEDBY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TBL_REQUEST" Relationship="Self.FK_TBL_REQUEST_NAMEID" FromRole="TBL_NAMES" ToRole="TBL_REQUEST" />
+        </EntityType>
+        <EntityType Name="TBL_REQUEST">
+          <Key>
+            <PropertyRef Name="REQUESTID" />
+          </Key>
+          <Property Name="REQUESTID" Type="Guid" Nullable="false" />
+          <Property Name="NAMEID" Type="Guid" Nullable="false" />
+          <Property Name="COMMENT" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CREATEDDATE" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CREATEDBY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UPDATEDDATE" Type="DateTime" Precision="3" />
+          <Property Name="UPDATEDBY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TBL_NAMES" Relationship="Self.FK_TBL_REQUEST_NAMEID" FromRole="TBL_REQUEST" ToRole="TBL_NAMES" />
+        </EntityType>
+        <Association Name="FK_TBL_REQUEST_NAMEID">
+          <End Role="TBL_NAMES" Type="Self.TBL_NAMES" Multiplicity="1" />
+          <End Role="TBL_REQUEST" Type="Self.TBL_REQUEST" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_NAMES">
+              <PropertyRef Name="NAMEID" />
+            </Principal>
+            <Dependent Role="TBL_REQUEST">
+              <PropertyRef Name="NAMEID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PROFILINGMAPPINGDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TBL_ADMIN" EntityType="Self.TBL_ADMIN" />
+          <EntitySet Name="TBL_NAMES" EntityType="Self.TBL_NAMES" />
+          <EntitySet Name="TBL_REQUEST" EntityType="Self.TBL_REQUEST" />
+          <AssociationSet Name="FK_TBL_REQUEST_NAMEID" Association="Self.FK_TBL_REQUEST_NAMEID">
+            <End Role="TBL_NAMES" EntitySet="TBL_NAMES" />
+            <End Role="TBL_REQUEST" EntitySet="TBL_REQUEST" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PROFILINGMAPPINGDBModelStoreContainer" CdmEntityContainer="PROFILINGMAPPINGDBEntities">
+          <EntitySetMapping Name="TBL_ADMIN">
+            <EntityTypeMapping TypeName="PROFILINGMAPPINGDBModel.TBL_ADMIN">
+              <MappingFragment StoreEntitySet="TBL_ADMIN">
+                <ScalarProperty Name="ADMINID" ColumnName="ADMINID" />
+                <ScalarProperty Name="FIRSTNAME" ColumnName="FIRSTNAME" />
+                <ScalarProperty Name="MIDDLENAME" ColumnName="MIDDLENAME" />
+                <ScalarProperty Name="LASTNAME" ColumnName="LASTNAME" />
+                <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
+                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+                <ScalarProperty Name="CREATEDDATE" ColumnName="CREATEDDATE" />
+                <ScalarProperty Name="CREATEDBY" ColumnName="CREATEDBY" />
+                <ScalarProperty Name="UPDATEDDATE" ColumnName="UPDATEDDATE" />
+                <ScalarProperty Name="UPDATEDBY" ColumnName="UPDATEDBY" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_NAMES">
+            <EntityTypeMapping TypeName="PROFILINGMAPPINGDBModel.TBL_NAMES">
+              <MappingFragment StoreEntitySet="TBL_NAMES">
+                <ScalarProperty Name="NAMEID" ColumnName="NAMEID" />
+                <ScalarProperty Name="FIRSTNAME" ColumnName="FIRSTNAME" />
+                <ScalarProperty Name="MIDDLENAME" ColumnName="MIDDLENAME" />
+                <ScalarProperty Name="LASTNAME" ColumnName="LASTNAME" />
+                <ScalarProperty Name="STREET" ColumnName="STREET" />
+                <ScalarProperty Name="SUBDIVISION" ColumnName="SUBDIVISION" />
+                <ScalarProperty Name="BARANGAY" ColumnName="BARANGAY" />
+                <ScalarProperty Name="CITY" ColumnName="CITY" />
+                <ScalarProperty Name="PROVINCE" ColumnName="PROVINCE" />
+                <ScalarProperty Name="CREATEDDATE" ColumnName="CREATEDDATE" />
+                <ScalarProperty Name="CREATEDBY" ColumnName="CREATEDBY" />
+                <ScalarProperty Name="UPDATEDDATE" ColumnName="UPDATEDDATE" />
+                <ScalarProperty Name="UPDATEDBY" ColumnName="UPDATEDBY" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_REQUEST">
+            <EntityTypeMapping TypeName="PROFILINGMAPPINGDBModel.TBL_REQUEST">
+              <MappingFragment StoreEntitySet="TBL_REQUEST">
+                <ScalarProperty Name="REQUESTID" ColumnName="REQUESTID" />
+                <ScalarProperty Name="NAMEID" ColumnName="NAMEID" />
+                <ScalarProperty Name="COMMENT" ColumnName="COMMENT" />
+                <ScalarProperty Name="CREATEDDATE" ColumnName="CREATEDDATE" />
+                <ScalarProperty Name="CREATEDBY" ColumnName="CREATEDBY" />
+                <ScalarProperty Name="UPDATEDDATE" ColumnName="UPDATEDDATE" />
+                <ScalarProperty Name="UPDATEDBY" ColumnName="UPDATEDBY" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
