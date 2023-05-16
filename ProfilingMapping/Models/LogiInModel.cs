@@ -19,5 +19,7 @@ namespace ProfilingMapping.Models
 
         public IEnumerable<TBL_NAMES> ListOfNames { get; set; }
         public TBL_NAMES SelectedNames { get; set; }
+        public string ErrorMessage { get; set; }
+        public List<string> AreChecked { get; set; }
     }
 }

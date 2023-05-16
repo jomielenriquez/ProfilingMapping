@@ -4,17 +4,19 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@using (Html.BeginForm("Delete", "AdminUser", FormMethod.Post, new { @name = "AdminUserForm" }))
+@using (Html.BeginForm("Delete", "Names", FormMethod.Post, new { @name = "NamesForm" }))
 {
-    <legend>Admin Users</legend>
+    <legend>Profiles</legend>
 
-    <table id="AdminUserType" class="table table-striped" style="width:100%">
+    <table id="table_names" class="table table-striped" style="width:100%">
         <thead>
             <tr>
                 <th style="width: 25px;">
                     @*<input type="checkbox" id="AreChecked" />*@
                 </th>
                 <th>Full Name</th>
+                <th>Birth Date</th>
+                <th>Age</th>
                 <th>Address</th>
                 <th class="hidden">ID</th>
             </tr>
@@ -24,7 +26,9 @@
             {
                 <tr>
                     <td><input type="checkbox" name="AreChecked" value="@names.NAMEID" /></td>
-                    <td><a href="@Url.Action("EditScreen","AdminUser", new { AdminUserID = (names.NAMEID)})">@names.FIRSTNAME @names.LASTNAME</a></td>
+                    <td><a href="@Url.Action("EditScreen","Names", new { NameID = (names.NAMEID)})">@names.FIRSTNAME @names.LASTNAME</a></td>
+                    <td>@(((DateTime)names.BIRTHDATE).ToString("MM/dd/yyyy"))</td>
+                    <td>@names.AGE</td>
                     <td>@names.STREET @names.SUBDIVISION @names.BARANGAY @names.CITY @names.PROVINCE</td>
                     <td class="hidden">@names.NAMEID</td>
                 </tr>
@@ -33,14 +37,14 @@
     </table>
 
     <p class="bs-component">
-        <a class="btn btn-primary" href="@Url.Action("EditScreen","AdminUser")"><i class="icon-plus"></i>  Add</a>
+        <a class="btn btn-primary" href="@Url.Action("EditScreen","Names")"><i class="icon-plus"></i>  Add</a>
         <button type="submit" class="btn btn-danger"><i class="icon-trash"></i>  Delete</button>
     </p>
 }
 
 <script>
     $(document).ready(function () {
-        $('#AdminUserType').DataTable({
+        $('#table_names').DataTable({
             "columnDefs": [
                 { "orderable": false, "targets": 0 }
             ],

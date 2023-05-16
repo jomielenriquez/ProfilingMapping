@@ -5,6 +5,7 @@ using System.Data.EntityClient;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
+using System.Xml.Linq;
 
 namespace ProfilingMapping.Repository
 {
@@ -31,7 +32,7 @@ namespace ProfilingMapping.Repository
                     x => !except.Contains(x.Name.ToLower()) &&
                     getValue(x.Name, Class) != null &&
                     getValue(x.Name, Class).ToString() != "00000000-0000-0000-0000-000000000000" &&
-                    (x.PropertyType == typeof(System.Guid) || x.PropertyType == typeof(System.String) || x.PropertyType == typeof(System.Int16) || x.PropertyType == typeof(System.Int32) || x.PropertyType == typeof(System.Int64) || x.PropertyType == typeof(System.DateTime) || x.PropertyType == typeof(System.Boolean) || x.PropertyType == typeof(Nullable<Guid>) || x.PropertyType == typeof(Nullable<Int16>) || x.PropertyType == typeof(Nullable<Int32>) || x.PropertyType == typeof(Nullable<Int64>) || x.PropertyType == typeof(Nullable<Boolean>))
+                    (x.PropertyType == typeof(System.Guid) || x.PropertyType == typeof(System.String) || x.PropertyType == typeof(System.Int16) || x.PropertyType == typeof(System.Int32) || x.PropertyType == typeof(System.Int64) || x.PropertyType == typeof(System.DateTime) || x.PropertyType == typeof(System.Boolean) || x.PropertyType == typeof(Nullable<Guid>) || x.PropertyType == typeof(Nullable<Int16>) || x.PropertyType == typeof(Nullable<Int32>) || x.PropertyType == typeof(Nullable<Int64>) || x.PropertyType == typeof(Nullable<Boolean>) || x.PropertyType == typeof(Nullable<System.DateTime>))
                     )
                 .Select(x => x.Name);
 
@@ -58,7 +59,14 @@ namespace ProfilingMapping.Repository
                     {
                         foreach (string prop in Properties)
                         {
-                            command.Parameters.AddWithValue("@" + prop, getValue(prop, Class).ToString());
+                            if (Class.GetType().GetProperty(prop).PropertyType == typeof(Nullable<System.DateTime>))
+                            {
+                                command.Parameters.AddWithValue("@" + prop, ((DateTime)getValue(prop, Class)).ToString("MM/dd/yyyy HH:mm:ss"));
+                            }
+                            else
+                            {
+                                command.Parameters.AddWithValue("@" + prop, getValue(prop, Class).ToString());
+                            }
                         }
                         output = (Guid)command.ExecuteScalar();
                         //var r = command.ExecuteNonQuery();
@@ -112,7 +120,7 @@ namespace ProfilingMapping.Repository
                     x => !except.Contains(x.Name.ToLower()) &&
                     getValue(x.Name, Class) != null &&
                     getValue(x.Name, Class).ToString() != "00000000-0000-0000-0000-000000000000" &&
-                    (x.PropertyType == typeof(System.Guid) || x.PropertyType == typeof(System.String) || x.PropertyType == typeof(System.Int16) || x.PropertyType == typeof(System.Int32) || x.PropertyType == typeof(System.Int64) || x.PropertyType == typeof(System.DateTime) || x.PropertyType == typeof(System.Boolean) || x.PropertyType == typeof(Nullable<Guid>) || x.PropertyType == typeof(Nullable<Int16>) || x.PropertyType == typeof(Nullable<Int32>) || x.PropertyType == typeof(Nullable<Int64>) || x.PropertyType == typeof(Nullable<Boolean>))
+                    (x.PropertyType == typeof(System.Guid) || x.PropertyType == typeof(System.String) || x.PropertyType == typeof(System.Int16) || x.PropertyType == typeof(System.Int32) || x.PropertyType == typeof(System.Int64) || x.PropertyType == typeof(System.DateTime) || x.PropertyType == typeof(System.Boolean) || x.PropertyType == typeof(Nullable<Guid>) || x.PropertyType == typeof(Nullable<Int16>) || x.PropertyType == typeof(Nullable<Int32>) || x.PropertyType == typeof(Nullable<Int64>) || x.PropertyType == typeof(Nullable<Boolean>) || x.PropertyType == typeof(Nullable<System.DateTime>))
                     )
                 .Select(x => x.Name);
 
@@ -141,7 +149,13 @@ namespace ProfilingMapping.Repository
                     {
                         foreach (string prop in Properties)
                         {
-                            command.Parameters.AddWithValue("@" + prop, getValue(prop, Class).ToString());
+                            if (Class.GetType().GetProperty(prop).PropertyType == typeof(Nullable<System.DateTime>)) {
+                                command.Parameters.AddWithValue("@" + prop, ((DateTime)getValue(prop, Class)).ToString("MM/dd/yyyy HH:mm:ss"));
+                            }
+                            else
+                            {
+                                command.Parameters.AddWithValue("@" + prop, getValue(prop, Class).ToString());
+                            }
                         }
                         foreach (string prop in FilterProperties)
                         {

@@ -1,0 +1,106 @@
+﻿@model ProfilingMapping.Models.LogiInModel
+@{
+    ViewBag.Title = "EditScreen";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="alert alert-dismissible alert-danger @(String.IsNullOrEmpty(Model.ErrorMessage)?"hidden":"")">
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <h4 class="alert-heading">Error!!!</h4>
+    <p class="mb-0">@Model.ErrorMessage</p>
+</div>
+<div class="card" style="">
+    <div class="card-header">@ViewBag.EditScreenHeader</div>
+    <div class="card-body">
+        @using (Html.BeginForm("Update", "Names", FormMethod.Post, new { @name = "NamesForm" }))
+        {
+            <fieldset>
+                @* Add class row if viewing *@
+                @Html.TextBoxFor(model => model.SelectedNames.NAMEID, new { @class = "hidden", @id = "NAMEID" })
+                <div class="form-group row margin_bottom_10">
+                    <label for="Name" class="col-sm-2 col-form-label">First Name</label>
+                    <div class="col-sm-10">
+                        @* class should be form-control-plaintext when viewing *@
+                        @Html.TextBoxFor(model => model.SelectedNames.FIRSTNAME, new { @class = "form-control", @id = "FIRSTNAME" })
+                    </div>
+                </div>
+
+                <div class="form-group row margin_bottom_10">
+                    <label for="Name" class="col-sm-2 col-form-label">Middle Name</label>
+                    <div class="col-sm-10">
+                        @* class should be form-control-plaintext when viewing *@
+                        @Html.TextBoxFor(model => model.SelectedNames.MIDDLENAME, new { @class = "form-control", @id = "MIDDLENAME" })
+                    </div>
+                </div>
+
+                <div class="form-group row margin_bottom_10">
+                    <label for="Name" class="col-sm-2 col-form-label">Last Name</label>
+                    <div class="col-sm-10">
+                        @* class should be form-control-plaintext when viewing *@
+                        @Html.TextBoxFor(model => model.SelectedNames.LASTNAME, new { @class = "form-control", @id = "LASTNAME" })
+                    </div>
+                </div>
+
+                <div class="form-group row margin_bottom_10">
+                    <label for="Name" class="col-sm-2 col-form-label">Birthdate</label>
+                    <div class="col-sm-10">
+                        @* class should be form-control-plaintext when viewing *@
+                        @Html.TextBoxFor(model => model.SelectedNames.BIRTHDATE, "{0:yyyy-MM-dd}", new { @class = "form-control", @id = "BIRTHDATE", @type = "date" })
+                    </div>
+                </div>
+
+                <div class="form-group row margin_bottom_10">
+                    <label for="Name" class="col-sm-2 col-form-label">Age</label>
+                    <div class="col-sm-10">
+                        @* class should be form-control-plaintext when viewing *@
+                        @Html.TextBoxFor(model => model.SelectedNames.AGE, new { @class = "form-control", @id = "BIRTHDATE", @type = "number" })
+                    </div>
+                </div>
+
+                <div class="form-group row margin_bottom_10">
+                    <label for="Name" class="col-sm-2 col-form-label">Street</label>
+                    <div class="col-sm-10">
+                        @* class should be form-control-plaintext when viewing *@
+                        @Html.TextBoxFor(model => model.SelectedNames.STREET, new { @class = "form-control", @id = "STREET", @type = "text" })
+                    </div>
+                </div>
+
+                <div class="form-group row margin_bottom_10">
+                    <label for="Name" class="col-sm-2 col-form-label">Subdivision</label>
+                    <div class="col-sm-10">
+                        @* class should be form-control-plaintext when viewing *@
+                        @Html.TextBoxFor(model => model.SelectedNames.SUBDIVISION, new { @class = "form-control", @id = "SUBDIVISION", @type = "text" })
+                    </div>
+                </div>
+
+                <div class="form-group row margin_bottom_10">
+                    <label for="Name" class="col-sm-2 col-form-label">Barangay</label>
+                    <div class="col-sm-10">
+                        @* class should be form-control-plaintext when viewing *@
+                        @Html.TextBoxFor(model => model.SelectedNames.BARANGAY, new { @class = "form-control", @id = "BARANGAY", @type = "text" })
+                    </div>
+                </div>
+
+                <div class="form-group row margin_bottom_10">
+                    <label for="Name" class="col-sm-2 col-form-label">City</label>
+                    <div class="col-sm-10">
+                        @* class should be form-control-plaintext when viewing *@
+                        @Html.TextBoxFor(model => model.SelectedNames.CITY, new { @class = "form-control", @id = "CITY", @type = "text" })
+                    </div>
+                </div>
+
+                <div class="form-group row margin_bottom_10">
+                    <label for="Name" class="col-sm-2 col-form-label">Province</label>
+                    <div class="col-sm-10">
+                        @* class should be form-control-plaintext when viewing *@
+                        @Html.TextBoxFor(model => model.SelectedNames.PROVINCE, new { @class = "form-control", @id = "PROVINCE", @type = "text" })
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-success" href=""><i class="icon-save"></i>  Save</button>
+                <a class="btn btn-primary" href="@Url.Action("ListScreen","Names")"><i class="icon-chevron-left"></i>  Back</a>
+            </fieldset>
+        }
+
+    </div>
+</div>

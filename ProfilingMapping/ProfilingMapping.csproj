@@ -239,6 +239,7 @@
     <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\Settings\ProfileSettings.cshtml" />
     <Content Include="Views\Names\ListScreen.cshtml" />
+    <Content Include="Views\Names\EditScreen.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
