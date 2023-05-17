@@ -3,7 +3,7 @@
     ViewBag.Title = "Request List";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@using (Html.BeginForm("Delete", "Request", FormMethod.Post, new { @name = "RequestForm" }))
+@using (Html.BeginForm("Delete", "RequestData", FormMethod.Post, new { @name = "RequestDataForm" }))
 {
     <legend>Profiles</legend>
 
@@ -23,7 +23,7 @@
             {
                 <tr>
                     <td><input type="checkbox" name="AreChecked" value="@request.REQUESTID" /></td>
-                    <td><a href="@Url.Action("EditScreen","Request", new { RequestID = (request.REQUESTID)})">@request.TBL_NAMES.FIRSTNAME @request.TBL_NAMES.LASTNAME</a></td>
+                    <td><a href="@Url.Action("EditScreen","RequestData", new { RequestID = (request.REQUESTID)})">@(request.TBL_NAMES.FIRSTNAME + " " + request.TBL_NAMES.LASTNAME)</a></td>
                     <td>@request.COMMENT</td>
                     <td class="hidden">@request.REQUESTID</td>
                 </tr>
@@ -32,7 +32,7 @@
     </table>
 
     <p class="bs-component">
-        <a class="btn btn-primary" href="@Url.Action("EditScreen","Request")"><i class="icon-plus"></i>  Add</a>
+        <a class="btn btn-primary" href="@Url.Action("EditScreen","RequestData")"><i class="icon-plus"></i>  Add</a>
         <button type="submit" class="btn btn-danger"><i class="icon-trash"></i>  Delete</button>
     </p>
 }

@@ -13,7 +13,7 @@
 <div class="card" style="">
     <div class="card-header">@ViewBag.EditScreenHeader</div>
     <div class="card-body">
-        @using (Html.BeginForm("Update", "Request", FormMethod.Post, new { @name = "RequestForm" }))
+        @using (Html.BeginForm("Update", "RequestData", FormMethod.Post, new { @name = "RequestDataForm" }))
         {
             <fieldset>
                 @* Add class row if viewing *@
@@ -42,7 +42,7 @@
                 </div>
 
                 <button type="submit" class="btn btn-success" href=""><i class="icon-save"></i>  Save</button>
-                <a class="btn btn-primary" href="@Url.Action("ListScreen","Request")"><i class="icon-chevron-left"></i>  Back</a>
+                <a class="btn btn-primary" href="@Url.Action("ListScreen","RequestData")"><i class="icon-chevron-left"></i>  Back</a>
             </fieldset>
         }
 
