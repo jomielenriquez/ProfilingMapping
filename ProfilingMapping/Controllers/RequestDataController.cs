@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace ProfilingMapping.Controllers
 {
-    public class RequestController : Controller
+    public class RequestDataController : Controller
     {
         static string ErrorMessage = string.Empty;
         static TBL_REQUEST holdRequest = new TBL_REQUEST();
