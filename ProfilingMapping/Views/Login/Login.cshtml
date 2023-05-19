@@ -12,8 +12,49 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
-<body>
-    <div class="sidenav">
+<body style="background-image: url('https://lh3.googleusercontent.com/p/AF1QipO9Q7qS0GED6cnfpsFRlUKjNa5VN1wlePK6h_8S=w768-h768-n-o-k-v1'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
+    <div class="row">
+        <div class="col-lg-4">
+
+        </div>
+        <div class="col-lg-2 alert alert-dismissible alert-secondary" style="margin-top: 15%; margin-left: 1%; margin-right: 1%; background-color: white !important; opacity: 0.8">
+            @using (Html.BeginForm("Log_in", "Login", FormMethod.Post, new { @name = "LoginForm" }))
+            {
+                <div class="form-group">
+                    <label for="inputUsername" class="form-label mt-4 text-opacity-100" style="color:black">Username</label>
+                    @Html.TextBoxFor(model => model.username, new { @id = "inputUsername", @class = "form-control opacity-100", @placeholder = "Username", @type = "text", @style = "color:black" })
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword" class="form-label mt-4 text-opacity-100" style="color:black">Password</label>
+                    @Html.TextBoxFor(model => model.password, new { @id = "inputPassword", @class = "form-control", @placeholder = "Username", @type = "password" })
+                </div>
+                <br />
+                <button type="submit" class="btn btn-black" style="width:100%">Login</button>
+            }
+            <br />
+
+        </div>
+        <div class="col-lg-2 alert alert-dismissible alert-secondary" style="margin-top: 15%; margin-left: 1%; margin-right: 1%; background-color: #ffd600 !important; position:relative">
+            <h6 class="alert-heading">City Government of Tanauan</h6>
+            <img src="https://tanauancity.gov.ph/wp-content/uploads/2020/07/295772845_1814308388917027_7382957764447628160_n-300x300.png" alt="Tanauan City"
+                 loading="lazy" style="margin-left: auto; margin-right: auto; position: absolute; width: 60%; margin: 0; top: 50%; left: 50%; -ms-transform: translate(-50%, -50%); transform: translate(-50%, -50%); "/>
+            <p style="bottom: 0; position: absolute; right: 20px"> @DateTime.Now.ToString("dddd, dd MMMM yyyy")</p>
+        </div>
+        <div class="col-lg-4">
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-4"></div>
+        <div class="col-lg-4">
+            <div class="alert alert-dismissible alert-danger @(ViewBag.ErrorMessage==""?"displayNone":"")">
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                <strong>Error!</strong> @ViewBag.ErrorMessage.
+            </div>
+        </div>
+        <div class="col-lg-4"></div>
+    </div>
+    @*<div class="sidenav">
         <div class="login-main-text">
             <h2>PROFILING AND<br> MAPPING</h2>
             <p>Login from here to access.</p>
@@ -22,27 +63,10 @@
     <div class="main">
         <div class="col-md-6 col-sm-12">
             <div class="login-form">
-                @using (Html.BeginForm("Log_in", "Login", FormMethod.Post, new { @name = "LoginForm" }))
-                {
-                    <div class="form-group">
-                        <label>User Name</label>
-                        @Html.TextBoxFor(model => model.username, new { @id = "inputUsername", @class = "form-control", @placeholder = "Username", @type = "text" })
-                    </div>
-                    <div class="form-group">
-                        <label>Password</label>
-                        @Html.TextBoxFor(model => model.password, new { @id = "inputPassword", @class = "form-control", @placeholder = "Username", @type = "password" })
-                    </div>
-                    <br />
-                    <button type="submit" class="btn btn-black">Login</button>
-                }
-                <br />
-                <div class="alert alert-dismissible alert-danger @(ViewBag.ErrorMessage==""?"displayNone":"")">
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                    <strong>Error!</strong> @ViewBag.ErrorMessage.
-                </div>
+                
             </div>
         </div>
-    </div>
+    </div>*@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
 
