@@ -10,31 +10,68 @@
     @Styles.Render("~/bundles/Table_Style")
     @Scripts.Render("~/bundles/Table")
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css">
+
 </head>
 <body>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-primary">
-        <div class="container">
-            @Html.ActionLink("Profiling and Mapping", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+    <nav id="sidebarMenu" class="collapse navbar-collapse d-lg-block sidebar collapse bg-white position-fixed">
+        <div class="position-sticky ">
+            <div class="list-group list-group-flush mx-3 mt-4">
+                @*<a href="@Url.Action("ProfileSettings","Settings")" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
+            <i class="icon-user"></i><span>Profiles</span>
+        </a>*@
+
+                <a href="@Url.Action("Index","Home")" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
+                    <i class="icon-dashboard"></i><span> Dashboard</span>
+                </a>
+                <a href="@Url.Action("ListScreen","Names")" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
+                    <i class="icon-user"></i><span> Profiles</span>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
+                    <i class="icon-map-marker"></i><span> Mapping</span>
+                </a>
+                <a href="@Url.Action("ListScreen","RequestData")" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
+                    <i class="icon-list-alt"></i><span> Logs</span>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
+                    <i class="icon-gear"></i><span> Users</span>
+                </a>
+
+            </div>
+        </div>
+    </nav>
+    <nav id="main-navbar" class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-primary fixed-top navigationBarNewStyle" style="background-color: #ffd600 !important">
+        <div class="container-fluid">
             <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
-                <ul class="navbar-nav flex-grow-1">
-                    <li><a class="nav-link" href="@Url.Action("ProfileSettings","Settings")"><i class="icon-user"></i> @ViewBag.FullName</a></li>
-                    <li><a class="nav-link" href="@Url.Action("ListScreen","Names")"><i class="icon-list"></i> Profiles</a></li>
-                    <li><a class="nav-link" href="@Url.Action("ListScreen","RequestData")"><i class="icon-bookmark"></i> Request</a></li>
-                    <li><a class="nav-link" href="@Url.Action("LogOut","Home")"><i class="icon-signout"></i> Logout</a></li>
-                </ul>
-            </div>
+
+            <a class="navbar-brand nav-bar-image" href="#" style="margin-top:0px !important">
+                <img src="https://tanauancity.gov.ph/wp-content/uploads/2020/07/295772845_1814308388917027_7382957764447628160_n-300x300.png" height="50" alt="Tanauan City"
+                     loading="lazy" />
+            </a>
+
+            <ul class="navbar-nav ms-auto d-flex flex-row">
+
+
+                <li class="nav-item">
+                    <a class="nav-link me-3 me-lg-0 navigationBarNewStyle" href="@Url.Action("Logout","Home")">
+                        @ViewBag.FullName <i class="icon-signout"></i>
+                    </a>
+                </li>
+
+            </ul>
         </div>
     </nav>
     <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
+        <br /><br /><br />
+        <div class="inside-body">
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - Profiling and Mapping</p>
+            </footer>
+        </div>
     </div>
 
     @Scripts.Render("~/bundles/bootstrap")
