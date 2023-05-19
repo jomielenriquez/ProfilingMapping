@@ -185,6 +185,10 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\dataTables.bootstrap5.min.css" />
+    <Content Include="Images\Header.png" />
+    <Content Include="Images\HeaderWithoutBack.png" />
+    <Content Include="Images\LoginBG.jpg" />
+    <Content Include="Images\Logo.png" />
     <Content Include="Scripts\dataTables.bootstrap5.min.js" />
     <Content Include="Scripts\jquery.dataTables.min.js" />
     <Content Include="favicon.ico" />
