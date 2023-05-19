@@ -39,6 +39,8 @@
           <Property Name="UPDATEDBY" Type="nvarchar" MaxLength="50" />
           <Property Name="BIRTHDATE" Type="datetime" />
           <Property Name="AGE" Type="int" />
+          <Property Name="LAT" Type="nvarchar" MaxLength="50" />
+          <Property Name="LONG" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="TBL_REQUEST">
           <Key>
@@ -112,6 +114,8 @@
           <NavigationProperty Name="TBL_REQUEST" Relationship="Self.FK_TBL_REQUEST_NAMEID" FromRole="TBL_NAMES" ToRole="TBL_REQUEST" />
           <Property Name="BIRTHDATE" Type="DateTime" Precision="3" />
           <Property Name="AGE" Type="Int32" />
+          <Property Name="LAT" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LONG" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="TBL_REQUEST">
           <Key>
@@ -172,6 +176,8 @@
           <EntitySetMapping Name="TBL_NAMES">
             <EntityTypeMapping TypeName="PROFILINGMAPPINGDBModel.TBL_NAMES">
               <MappingFragment StoreEntitySet="TBL_NAMES">
+                <ScalarProperty Name="LONG" ColumnName="LONG" />
+                <ScalarProperty Name="LAT" ColumnName="LAT" />
                 <ScalarProperty Name="AGE" ColumnName="AGE" />
                 <ScalarProperty Name="BIRTHDATE" ColumnName="BIRTHDATE" />
                 <ScalarProperty Name="NAMEID" ColumnName="NAMEID" />

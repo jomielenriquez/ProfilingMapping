@@ -97,6 +97,79 @@
                     </div>
                 </div>
 
+                <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+                <script type="text/javascript">
+                    window.onload = function () {
+                        initLocationPicker();
+                    }
+                    function initLocationPicker() {
+                        $("#LAT").val("");
+                        $("#LONG").val("");
+                        var mapOptions = {
+                            center: new google.maps.LatLng(14.0737223, 121.1408276),
+                            zoom: 14,
+                            mapTypeId: google.maps.MapTypeId.ROADMAP
+                        };
+                        var infoWindow = new google.maps.InfoWindow();
+                        var latlngbounds = new google.maps.LatLngBounds();
+                        var map = new google.maps.Map(document.getElementById("dvMap"), mapOptions);
+                        google.maps.event.addListener(map, 'click', function (e) {
+                            console.log("Latitude: " + e.latLng.lat() + "\r\nLongitude: " + e.latLng.lng());
+                            $("#LAT").val(e.latLng.lat());
+                            $("#LONG").val(e.latLng.lng());
+                            selectLocation(e.latLng.lat(), e.latLng.lng());
+                            if ($("#newLocation").hasClass("hidden")) {
+                                $("#newLocation").removeClass("hidden");
+                            }
+                        });
+                    }
+
+                    function selectLocation(lat, long) {
+                        var pointA = new google.maps.LatLng(lat, long),
+                            myOptions = {
+                                zoom: 18,
+                                center: pointA
+                            },
+                            map = new google.maps.Map(document.getElementById('dvMap'), myOptions),
+                            // Instantiate a directions service.
+                            directionsService = new google.maps.DirectionsService,
+                            directionsDisplay = new google.maps.DirectionsRenderer({
+                                map: map
+                            }),
+                            markerA = new google.maps.Marker({
+                                position: pointA,
+                                title: "point A",
+                                label: "Your Address",
+                                map: map
+                            });
+                    }
+                </script>
+
+                <div class="form-group row margin_bottom_10 hidden">
+                    <label for="Name" class="col-sm-2 col-form-label">Latitude</label>
+                    <div class="col-sm-10">
+                        @* class should be form-control-plaintext when viewing *@
+                        @Html.TextBoxFor(model => model.SelectedNames.LAT, new { @class = "form-control", @id = "LAT", @type = "text" })
+                    </div>
+                </div>
+
+                <div class="form-group row margin_bottom_10 hidden">
+                    <label for="Name" class="col-sm-2 col-form-label">Longitude</label>
+                    <div class="col-sm-10">
+                        @* class should be form-control-plaintext when viewing *@
+                        @Html.TextBoxFor(model => model.SelectedNames.LONG, new { @class = "form-control", @id = "LONG", @type = "text" })
+                    </div>
+                </div>
+
+                <div class="form-group row margin_bottom_10">
+                    <label for="Name" class="col-sm-2 col-form-label">Select Location</label>
+                    <div class="col-sm-10">
+                        @* class should be form-control-plaintext when viewing *@
+                        <div id="dvMap" style="width: 500px; height: 500px"></div>
+                        <button class="btn btn-success btn-sm" type="button" onclick="initLocationPicker()">Change Location</button>
+                    </div>
+                </div>
+
                 <button type="submit" class="btn btn-success" href=""><i class="icon-save"></i>  Save</button>
                 <a class="btn btn-primary" href="@Url.Action("ListScreen","Names")"><i class="icon-chevron-left"></i>  Back</a>
             </fieldset>

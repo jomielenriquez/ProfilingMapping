@@ -34,6 +34,8 @@ namespace ProfilingMapping.Models
         public string UPDATEDBY { get; set; }
         public Nullable<System.DateTime> BIRTHDATE { get; set; }
         public Nullable<int> AGE { get; set; }
+        public string LAT { get; set; }
+        public string LONG { get; set; }
     
         public virtual ICollection<TBL_REQUEST> TBL_REQUEST { get; set; }
     }
