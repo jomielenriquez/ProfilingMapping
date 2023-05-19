@@ -13,7 +13,7 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body style="background-image: url('https://lh3.googleusercontent.com/p/AF1QipO9Q7qS0GED6cnfpsFRlUKjNa5VN1wlePK6h_8S=w768-h768-n-o-k-v1'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
-    <div class="row">
+    <div class="row" style="width:90%">
         <div class="col-lg-4">
 
         </div>
@@ -44,9 +44,9 @@
 
         </div>
     </div>
-    <div class="row">
+    <div class="row" style="width:90%">
         <div class="col-lg-4"></div>
-        <div class="col-lg-4">
+        <div class="col-lg-5">
             <div class="alert alert-dismissible alert-danger @(ViewBag.ErrorMessage==""?"displayNone":"")">
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 <strong>Error!</strong> @ViewBag.ErrorMessage.
