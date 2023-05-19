@@ -18,12 +18,13 @@
         }
     </style>
 </head>
-<body style="background-image: url('https://lh3.googleusercontent.com/p/AF1QipO9Q7qS0GED6cnfpsFRlUKjNa5VN1wlePK6h_8S=w768-h768-n-o-k-v1'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
+<body style="background-image: url('../../Images/LoginBG.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
     <div class="row" style="width:90%">
         <div class="col-lg-4">
 
         </div>
         <div class="col-lg-2 alert alert-dismissible alert-secondary" style="margin-top: 15%; margin-left: 1%; margin-right: 1%; background-color: white !important; opacity: 0.8; padding: 20px;">
+            <h5 class="alert-heading text-center" style="color:black">Login</h5>
             @using (Html.BeginForm("Log_in", "Login", FormMethod.Post, new { @name = "LoginForm" }))
             {
                 <div class="form-group">
@@ -36,7 +37,7 @@
                 </div>
                 <div class="form-group">
                     <label for="inputPassword" class="form-label mt-4 text-opacity-100" style="color:black">Password</label>
-                    
+
                     <div class="form-control inputField">
                         <i class="icon-lock"></i>
                         @Html.TextBoxFor(model => model.password, new { @id = "inputPassword", @class = "", @placeholder = "Password", @type = "password", @style = "color:black;opacity-100; width:90%; border:none" })
@@ -49,11 +50,11 @@
             <br />
 
         </div>
-        <div class="col-lg-2 alert alert-dismissible alert-secondary opacity-100" style="margin-top: 15%; margin-left: 1%; margin-right: 1%; background-color: #ffd600 !important; position:relative">
-            <h6 class="alert-heading">City Government of Tanauan</h6>
+        <div class="col-lg-2 alert alert-dismissible alert-secondary opacity-100" style="margin-top: 15%; margin-left: 1%; margin-right: 1%; background-color: #ffd600 !important; position:relative; padding: 20px !important">
+            <h5 class="alert-heading text-center" style="color:black">City Government of Tanauan</h5>
             <img src="https://tanauancity.gov.ph/wp-content/uploads/2020/07/295772845_1814308388917027_7382957764447628160_n-300x300.png" alt="Tanauan City"
                  loading="lazy" style="margin-left: auto; margin-right: auto; position: absolute; width: 60%; margin: 0; top: 50%; left: 50%; -ms-transform: translate(-50%, -50%); transform: translate(-50%, -50%); "/>
-            <p style="bottom: 0; position: absolute; right: 20px"> @DateTime.Now.ToString("dddd, dd MMMM yyyy")</p>
+            <p style="bottom: 0; position: absolute; right: 20px; color:black"> @DateTime.Now.ToString("dddd, dd MMMM yyyy")</p>
         </div>
         <div class="col-lg-4">
 
