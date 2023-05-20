@@ -16,12 +16,15 @@ namespace ProfilingMapping.Models
             }
         }
         public TBL_ADMIN CurrenUserProfile { get; set; }
-
         public IEnumerable<TBL_NAMES> ListOfNames { get; set; }
         public TBL_NAMES SelectedNames { get; set; }
         public IEnumerable<TBL_REQUEST> ListOfRequest { get; set; }
         public TBL_REQUEST SelectedRequest { get; set; }
         public string ErrorMessage { get; set; }
         public List<string> AreChecked { get; set; }
+        public IEnumerable<TBL_BARANGAY> BarangayList { get; set; }
+        public IEnumerable<TBL_ADMIN> ListOfAdmins { get; set; }
+        public TBL_ADMIN SelectedAdmin { get; set; }
+        public IEnumerable<TBL_TAGGING> ListOfTaggings { get; set; }
     }
 }

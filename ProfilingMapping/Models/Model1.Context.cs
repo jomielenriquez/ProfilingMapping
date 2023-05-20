@@ -26,7 +26,9 @@ namespace ProfilingMapping.Models
         }
     
         public DbSet<TBL_ADMIN> TBL_ADMIN { get; set; }
-        public DbSet<TBL_NAMES> TBL_NAMES { get; set; }
         public DbSet<TBL_REQUEST> TBL_REQUEST { get; set; }
+        public DbSet<TBL_BARANGAY> TBL_BARANGAY { get; set; }
+        public DbSet<TBL_NAMES> TBL_NAMES { get; set; }
+        public DbSet<TBL_TAGGING> TBL_TAGGING { get; set; }
     }
 }

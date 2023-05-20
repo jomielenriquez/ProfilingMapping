@@ -8,10 +8,10 @@ using System.Web.Mvc;
 
 namespace ProfilingMapping.Controllers
 {
-    public class NamesController : Controller
+    public class AdminController : Controller
     {
         static string ErrorMessage = string.Empty;
-        static TBL_NAMES holdNames = new TBL_NAMES();
+        static TBL_ADMIN holdAdmin = new TBL_ADMIN();
 
         public ActionResult ListScreen()
         {
@@ -19,7 +19,7 @@ namespace ProfilingMapping.Controllers
             {
                 // reset error Message and hold data when going to list screen
                 ErrorMessage = string.Empty;
-                holdNames = new TBL_NAMES();
+                holdAdmin = new TBL_ADMIN();
 
                 if (LogiInModel.adminID == Guid.Empty)
                 {
@@ -28,7 +28,7 @@ namespace ProfilingMapping.Controllers
 
                 LogiInModel LoginModel = new LogiInModel();
                 ViewBag.FullName = LogiInModel.FullName;
-                LoginModel.ListOfNames = NamesRepository.GetAllNames();
+                LoginModel.ListOfAdmins = SettingsRepository.getAdmins();
 
                 return View(LoginModel);
             }
@@ -38,7 +38,7 @@ namespace ProfilingMapping.Controllers
             }
         }
 
-        public ActionResult EditScreen(Guid? NameID)
+        public ActionResult EditScreen(Guid? AdminID)
         {
             try
             {
@@ -48,25 +48,26 @@ namespace ProfilingMapping.Controllers
                 }
                 LogiInModel LoginModel = new LogiInModel();
                 LoginModel.BarangayList = BarangayRepository.GetAllBarangays();
+                LoginModel.ListOfTaggings = TaggingRepository.getTaggings();
                 ViewBag.FullName = LogiInModel.FullName;
 
-                if (NameID == null)
+                if (AdminID == null)
                 {
-                    ViewBag.EditScreenHeader = "Add Profile";
+                    ViewBag.EditScreenHeader = "Add User";
                     //new
-                    LoginModel.SelectedNames = null;
+                    LoginModel.SelectedAdmin = null;
                 }
                 else
                 {
-                    ViewBag.EditScreenHeader = "Edit Profile";
+                    ViewBag.EditScreenHeader = "Edit User";
                     //Update
-                    LoginModel.SelectedNames = NamesRepository.GetName(NameID);
+                    LoginModel.SelectedAdmin = SettingsRepository.getCurrentUserInfo(AdminID);
                 }
 
                 if (!string.IsNullOrEmpty(ErrorMessage))
                 {
                     LoginModel.ErrorMessage = ErrorMessage;
-                    LoginModel.SelectedNames = holdNames;
+                    LoginModel.SelectedAdmin = holdAdmin;
                 }
 
                 return View(LoginModel);
@@ -81,31 +82,32 @@ namespace ProfilingMapping.Controllers
         public ActionResult Delete(LogiInModel LoginModel)
         {
             Data data = new Data();
-            string message = data.Delete(new TBL_NAMES(), LoginModel.AreChecked, "NAMEID");
+            string message = data.Delete(new TBL_ADMIN(), LoginModel.AreChecked, "ADMINID");
 
             return RedirectToAction("ListScreen");
         }
 
         [HttpPost]
-        public ActionResult Update(TBL_NAMES SelectedNames)
+        public ActionResult Update(TBL_ADMIN SelectedAdmin)
         {
             var result = string.Empty;
             Data data = new Data();
-            if (SelectedNames.NAMEID == new Guid())
+            if (SelectedAdmin.ADMINID == new Guid())
             {
                 //Save
-                SelectedNames.CREATEDBY = LogiInModel.adminID.ToString();
-
-                result = data.Save(SelectedNames, new List<string> { "NAMEID" }, "NAMEID");
+                SelectedAdmin.CREATEDBY = LogiInModel.adminID.ToString();
+                SelectedAdmin.USERNAME = SelectedAdmin.FIRSTNAME.ToLower();
+                SelectedAdmin.PASSWORD = SelectedAdmin.FIRSTNAME.ToLower();
+                result = data.Save(SelectedAdmin, new List<string> { "ADMINID" }, "ADMINID");
             }
             else
             {
                 //Update
-                TBL_NAMES Names = SelectedNames;
-                TBL_NAMES filter = new TBL_NAMES();
-                filter.NAMEID = Names.NAMEID;
-                Names.NAMEID = new Guid();
-                result = data.Update(Names, filter, LogiInModel.adminID);
+                TBL_ADMIN Admin = SelectedAdmin;
+                TBL_ADMIN filter = new TBL_ADMIN();
+                filter.ADMINID = Admin.ADMINID;
+                Admin.ADMINID = new Guid();
+                result = data.Update(Admin, filter, LogiInModel.adminID);
             }
             if (result != "Success")
             {
@@ -113,12 +115,12 @@ namespace ProfilingMapping.Controllers
                 if (!Guid.TryParse(result, out x)) // check if return value is not UID
                 {
                     ErrorMessage = result;
-                    holdNames = SelectedNames as TBL_NAMES;
+                    holdAdmin = SelectedAdmin as TBL_ADMIN;
                     return Redirect(Request.UrlReferrer.ToString());
                 }
             }
             ErrorMessage = string.Empty;
-            holdNames = new TBL_NAMES();
+            holdAdmin = new TBL_ADMIN();
             return RedirectToAction("ListScreen");
         }
     }

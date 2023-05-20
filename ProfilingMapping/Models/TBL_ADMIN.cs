@@ -24,5 +24,16 @@ namespace ProfilingMapping.Models
         public string CREATEDBY { get; set; }
         public Nullable<System.DateTime> UPDATEDDATE { get; set; }
         public string UPDATEDBY { get; set; }
+        public System.Guid TAGGINGID { get; set; }
+        public string STREET { get; set; }
+        public string SUBDIVISION { get; set; }
+        public string CITY { get; set; }
+        public string PROVINCE { get; set; }
+        public string LAT { get; set; }
+        public string LONG { get; set; }
+        public System.Guid BARANGAYID { get; set; }
+    
+        public virtual TBL_BARANGAY TBL_BARANGAY { get; set; }
+        public virtual TBL_TAGGING TBL_TAGGING { get; set; }
     }
 }
