@@ -115,9 +115,18 @@
                             var isHasLocation = false;
                             try
                             {
-                                Latitude = Model.SelectedNames.LAT;
-                                Longitude = Model.SelectedNames.LONG;
-                                isHasLocation = true;
+                                if (Model.SelectedNames.LAT is null || Model.SelectedNames.LONG is null)
+                                {
+                                    Latitude = "14.0737223";
+                                    Longitude = "121.1408276";
+                                    isHasLocation = false;
+                                }
+                                else
+                                {
+                                    Latitude = Model.SelectedNames.LAT;
+                                    Longitude = Model.SelectedNames.LONG;
+                                    isHasLocation = true;
+                                }
                             }
                             catch (Exception e)
                             {

@@ -22,6 +22,7 @@ namespace ProfilingMapping.Controllers
             LogiInModel logiInModel = new LogiInModel();
 
             logiInModel.CurrenUserProfile = SettingsRepository.getCurrentUserInfo(LogiInModel.adminID);
+            logiInModel.BarangayList = BarangayRepository.GetAllBarangays();
 
             return View(logiInModel);
         }
