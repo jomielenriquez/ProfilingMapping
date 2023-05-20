@@ -1,0 +1,101 @@
+﻿@model ProfilingMapping.Models.LogiInModel
+@{
+    ViewBag.Title = "Mapping";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript" src="https://maps.google.com/maps/api/js?key=AIzaSyBFIcaHmn63Pfgss3u4aLltaJtDyc3QxN8&sensor=false"></script>
+
+<br />
+<div id="dvMap" style="width: 100%; height: 500px"></div>
+
+<script type="text/javascript">
+    //window.onload = function () {
+    //    initMap();
+    //}
+    function initMap() {
+        @{ 
+            var javascript_code = "var ";
+
+            foreach(ProfilingMapping.Models.TBL_NAMES names in Model.ListOfNames)
+            {
+                javascript_code += names.FIRSTNAME + names.LASTNAME + " = new google.maps.LatLng(" + names.LAT + ", " + names.LONG + "),";
+            }
+
+            javascript_code += "CurrentUserLocation = new google.maps.LatLng(14.0737223, 121.1408276),                     " +
+                                "    myOptions = {                                                                 " +
+                                "        zoom: 17,                                                                 " +
+                                "        center: CurrentUserLocation                                                            " +
+                                "    },                                                                            " +
+                                "    map = new google.maps.Map(document.getElementById('dvMap'), myOptions),       " +
+                                "    directionsService = new google.maps.DirectionsService,                        " +
+                                "    directionsDisplay = new google.maps.DirectionsRenderer({                      " +
+                                "        map: map                                                                  " +
+                                "    }),                                                                           ";
+
+            foreach (ProfilingMapping.Models.TBL_NAMES names in Model.ListOfNames)
+            {
+                javascript_code += "    " + names.FIRSTNAME + names.LASTNAME + "Marker = new google.maps.Marker({                                            " +
+                "        position: " + names.FIRSTNAME + names.LASTNAME + ",                                                         " +
+                "        title: 'point A',                                                         " +
+                "        label: '" + names.FIRSTNAME + " " + names.LASTNAME + "',                                                          " +
+                "        map: map                                                                  " +
+                "    }),                                                                           ";
+            }
+
+
+            javascript_code += "    CurrentUserLocationMarker = new google.maps.Marker({                         " +
+            "        position: CurrentUserLocation,                                                         " +
+            "        title: 'point A',                                                         " +
+            "        label: 'My Location',                                                          " +
+            "        map: map                                                                  " +
+            "    });                                                                           ";
+        }
+        //var pointA = new google.maps.LatLng(14.0737223, 121.1408276),
+        //    pointB = new google.maps.LatLng(14.0780768, 121.1170364),
+        //    myOptions = {
+        //    zoom: 17,
+        //        center: pointA
+        //        },
+        //    map = new google.maps.Map(document.getElementById('dvMap'), myOptions),
+        //    // Instantiate a directions service.
+        //    directionsService = new google.maps.DirectionsService,
+        //    directionsDisplay = new google.maps.DirectionsRenderer({
+        //        map: map
+        //    }),
+        //    markerA = new google.maps.Marker({
+        //        position: pointA,
+        //        title: "point A",
+        //        label: "Atesti",
+        //        map: map
+        //    }),
+        //    markerB = new google.maps.Marker({
+        //        position: pointB,
+        //        title: "point B",
+        //        label: "B",
+        //        map: map
+        //    });
+        @Html.Raw(javascript_code);
+
+            // get route from A to B
+            //calculateAndDisplayRoute(directionsService, directionsDisplay, pointA, pointB);
+
+    }
+    function calculateAndDisplayRoute(directionsService, directionsDisplay, pointA, pointB) {
+        directionsService.route({
+            origin: pointA,
+            destination: pointB,
+            avoidTolls: true,
+            avoidHighways: false,
+            travelMode: google.maps.TravelMode.DRIVING
+        }, function (response, status) {
+            if (status == google.maps.DirectionsStatus.OK) {
+                directionsDisplay.setDirections(response);
+            } else {
+                window.alert('Directions request failed due to ' + status);
+            }
+        });
+    }
+
+    initMap();
+</script>

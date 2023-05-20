@@ -29,7 +29,7 @@
                     <td><a href="@Url.Action("EditScreen","Names", new { NameID = (names.NAMEID)})">@names.FIRSTNAME @names.LASTNAME</a></td>
                     <td>@(((DateTime)names.BIRTHDATE).ToString("MM/dd/yyyy"))</td>
                     <td>@names.AGE</td>
-                    <td>@names.STREET @names.SUBDIVISION @names.BARANGAY @names.CITY @names.PROVINCE</td>
+                    <td>@names.STREET @names.SUBDIVISION @names.TBL_BARANGAY.NAME @names.CITY @names.PROVINCE</td>
                     <td class="hidden">@names.NAMEID</td>
                 </tr>
             }

@@ -25,7 +25,6 @@ namespace ProfilingMapping.Models
         public string LASTNAME { get; set; }
         public string STREET { get; set; }
         public string SUBDIVISION { get; set; }
-        public string BARANGAY { get; set; }
         public string CITY { get; set; }
         public string PROVINCE { get; set; }
         public System.DateTime CREATEDDATE { get; set; }
@@ -36,7 +35,9 @@ namespace ProfilingMapping.Models
         public Nullable<int> AGE { get; set; }
         public string LAT { get; set; }
         public string LONG { get; set; }
+        public System.Guid BARANGAYID { get; set; }
     
+        public virtual TBL_BARANGAY TBL_BARANGAY { get; set; }
         public virtual ICollection<TBL_REQUEST> TBL_REQUEST { get; set; }
     }
 }
