@@ -1,6 +1,6 @@
 ﻿@model ProfilingMapping.Models.LogiInModel
 @{
-    ViewBag.Title = "Mapping";
+    ViewBag.Title = "View Location";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -11,18 +11,13 @@
     var Names = new List<SelectListItem>();
     foreach (var names in Model.ListOfNames)
     {
-        Names.Add(new SelectListItem { Text = names.FIRSTNAME + " " + names.LASTNAME, Value = names.NAMEID.ToString()});
+        Names.Add(new SelectListItem { Text = names.FIRSTNAME + " " + names.LASTNAME, Value = names.NAMEID.ToString() });
     }
 }
 <div class="" style="display: inline-block; width: 100%; height:50px; position:relative">
-    @using (Html.BeginForm("SelectSpecific", "Mapping", FormMethod.Post, new { @name = "MappingForm", @style= "width:200px;marin:0; position: absolute;right: 130px;" }))
-    {
-        @Html.DropDownListFor(model => model.SelectedRoute, Names, "Select Name", new { @class = "form-select", @id = "NAMEID", @onchange = "this.form.submit();" })
-    }
-    @using (Html.BeginForm("SelectAll", "Mapping", FormMethod.Post, new { @name = "MappingForm", @style = "width:120px;marin:0; position: absolute;right: 5px;" }))
-    {
-        <button type="submit" class="btn btn-success" style="width:100%">Select All</button>
-    }
+    <div style="width:200px;margin:0; position: absolute;right: 5px;">
+        <a class="btn btn-primary" href="@Url.Action("ListScreen","RequestData")"><i class="icon-chevron-left"></i>  Back</a>
+    </div>
 </div>
 <br />
 <br />
@@ -55,10 +50,7 @@
         @{
             var javascript_code = "var ";
 
-            foreach(ProfilingMapping.Models.TBL_NAMES names in Model.ListOfNames)
-            {
-                javascript_code += names.FIRSTNAME + names.LASTNAME + " = new google.maps.LatLng(" + names.LAT + ", " + names.LONG + "),";
-            }
+            javascript_code += Model.SelectedRequest.TBL_NAMES.FIRSTNAME + Model.SelectedRequest.TBL_NAMES.LASTNAME + " = new google.maps.LatLng(" + Model.SelectedRequest.LAT + ", " + Model.SelectedRequest.LONG + "),";
 
             javascript_code += "CurrentUserLocation = new google.maps.LatLng("+Model.LAT+", "+Model.LONG+"),                     " +
                                 "    myOptions = {                                                                 " +
@@ -71,15 +63,12 @@
                                 "        map: map                                                                  " +
                                 "    }),                                                                           ";
 
-            foreach (ProfilingMapping.Models.TBL_NAMES names in Model.ListOfNames)
-            {
-                javascript_code += "    " + names.FIRSTNAME + names.LASTNAME + "Marker = new google.maps.Marker({                                            " +
-                "        position: " + names.FIRSTNAME + names.LASTNAME + ",                                                         " +
-                "        title: 'point A',                                                         " +
-                "        label: '" + names.FIRSTNAME + " " + names.LASTNAME + "',                                                          " +
-                "        map: map                                                                  " +
-                "    }),                                                                           ";
-            }
+            javascript_code += "    " + Model.SelectedRequest.TBL_NAMES.FIRSTNAME + Model.SelectedRequest.TBL_NAMES.LASTNAME + "Marker = new google.maps.Marker({                                            " +
+            "        position: " + Model.SelectedRequest.TBL_NAMES.FIRSTNAME + Model.SelectedRequest.TBL_NAMES.LASTNAME + ",                                                         " +
+            "        title: 'point A',                                                         " +
+            "        label: '" + Model.SelectedRequest.TBL_NAMES.FIRSTNAME + " " + Model.SelectedRequest.TBL_NAMES.LASTNAME + "',                                                          " +
+            "        map: map                                                                  " +
+            "    }),                                                                           ";
 
 
             javascript_code += "    CurrentUserLocationMarker = new google.maps.Marker({                         " +
@@ -89,37 +78,10 @@
             "        map: map                                                                  " +
             "    });                                                                           ";
         }
-        //var pointA = new google.maps.LatLng(14.0737223, 121.1408276),
-        //    pointB = new google.maps.LatLng(14.0780768, 121.1170364),
-        //    myOptions = {
-        //    zoom: 17,
-        //        center: pointA
-        //        },
-        //    map = new google.maps.Map(document.getElementById('dvMap'), myOptions),
-        //    // Instantiate a directions service.
-        //    directionsService = new google.maps.DirectionsService,
-        //    directionsDisplay = new google.maps.DirectionsRenderer({
-        //        map: map
-        //    }),
-        //    markerA = new google.maps.Marker({
-        //        position: pointA,
-        //        title: "point A",
-        //        label: "Atesti",
-        //        map: map
-        //    }),
-        //    markerB = new google.maps.Marker({
-        //        position: pointB,
-        //        title: "point B",
-        //        label: "B",
-        //        map: map
-        //    });
         @Html.Raw(javascript_code);
 
         // get route from A to B
-        @if (!string.IsNullOrEmpty(Model.selectedName))
-        {
-            @Html.Raw("calculateAndDisplayRoute(directionsService, directionsDisplay, CurrentUserLocation, " + Model.selectedName + ");");
-        }
+        @Html.Raw("calculateAndDisplayRoute(directionsService, directionsDisplay, CurrentUserLocation, " + Model.SelectedRequest.TBL_NAMES.FIRSTNAME + Model.SelectedRequest.TBL_NAMES.LASTNAME + ");");
         //calculateAndDisplayRoute(directionsService, directionsDisplay, pointA, pointB);
 
     }

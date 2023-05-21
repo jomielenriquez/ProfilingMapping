@@ -29,6 +29,24 @@ namespace ProfilingMapping.Models
                 return name.BARANGAYID;
             } 
         }
+        public string LAT
+        {
+            get
+            {
+                PROFILINGMAPPINGDBEntities entities = new PROFILINGMAPPINGDBEntities();
+                var name = (from names in entities.TBL_ADMIN.Where(admin => admin.ADMINID == adminID) select names).FirstOrDefault();
+                return name.LAT;
+            }
+        }
+        public string LONG
+        {
+            get
+            {
+                PROFILINGMAPPINGDBEntities entities = new PROFILINGMAPPINGDBEntities();
+                var name = (from names in entities.TBL_ADMIN.Where(admin => admin.ADMINID == adminID) select names).FirstOrDefault();
+                return name.LONG;
+            }
+        }
         public TBL_ADMIN CurrenUserProfile { get; set; }
         public IEnumerable<TBL_NAMES> ListOfNames { get; set; }
         public TBL_NAMES SelectedNames { get; set; }

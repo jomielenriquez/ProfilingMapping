@@ -29,7 +29,7 @@
                     <td><input type="checkbox" name="AreChecked" value="@request.REQUESTID" /></td>
                     <td><a href="@Url.Action("EditScreen","RequestData", new { RequestID = (request.REQUESTID)})">@(request.TBL_NAMES.FIRSTNAME + " " + request.TBL_NAMES.LASTNAME)</a></td>
                     <td>@request.DEVICENAME</td>
-                    <td>@request.LAT @request.LONG</td>
+                    <td><a href="@Url.Action("ViewLocation","RequestData", new { RequestID = (request.REQUESTID)})">View Location</td>
                     <td>@Html.Raw(request.TBL_STATUS.NAME=="NEW"?"<span class=\"badge bg-danger\">NEW</span>":"<span class=\"badge bg-success\">COMPLETED</span>")</td>
                     <td>@request.COMMENT</td>
                     <td>@request.CREATEDDATE</td>
