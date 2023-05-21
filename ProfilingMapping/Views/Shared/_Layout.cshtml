@@ -19,23 +19,34 @@
                 @*<a href="@Url.Action("ProfileSettings","Settings")" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
             <i class="icon-user"></i><span>Profiles</span>
         </a>*@
-
-                <a href="@Url.Action("Index","Home")" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
+                @{
+                    var controllerAction = ViewContext.RouteData.Values["controller"].ToString().ToLower() + ViewContext.RouteData.Values["action"].ToString().ToLower();
+                }
+                <a class='list-group-item list-group-item-action py-2 ripple' aria-current="true">
+                   
+                </a>
+                <a href="@Url.Action("Index", "Home")" id="Dashboard_nav" class='list-group-item list-group-item-action py-2 ripple @Html.Raw(controllerAction=="homeindex"?"active":"")' aria-current="true">
                     <i class="icon-dashboard"></i><span> Dashboard</span>
                 </a>
-                <a href="@Url.Action("ListScreen","Names")" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
+                <a href="@Url.Action("ListScreen", "Names")" id="Profiles_nav" class="list-group-item list-group-item-action py-2 ripple @Html.Raw(controllerAction=="nameslistscreen" || controllerAction=="nameseditscreen"?"active":"")" aria-current="true">
                     <i class="icon-user"></i><span> Profiles</span>
                 </a>
-                <a href="@Url.Action("Mapping","Mapping")" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
+                <a href="@Url.Action("Mapping", "Mapping")" id="Mapping_nav" class="list-group-item list-group-item-action py-2 ripple @Html.Raw(controllerAction=="mappingmapping"?"active":"")" aria-current="true">
                     <i class="icon-map-marker"></i><span> Mapping</span>
                 </a>
-                <a href="@Url.Action("ListScreen","RequestData")" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
+                <a href="@Url.Action("ListScreen", "RequestData")" id="Logs_nav" class="list-group-item list-group-item-action py-2 ripple @Html.Raw(controllerAction=="requestdatalistscreen" || controllerAction=="requestdataeditscreen"?"active":"")" aria-current="true">
                     <i class="icon-list-alt"></i><span> Logs</span>
                 </a>
-                <a href="@Url.Action("ListScreen","Admin")" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
-                    <i class="icon-gear"></i><span> Users</span>
-                </a>
-                <a href="@Url.Action("ProfileSettings","Settings")" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
+                @{
+                    if (Model.Role == "ADMIN USER")
+                    {
+                        @Html.Raw("" +
+                         "<a href='" + @Url.Action("ListScreen", "Admin") + "' id='Users_nav' class='list-group-item list-group-item-action py-2 ripple "+ (controllerAction=="adminlistscreen" || controllerAction == "admineditscreen" ? "active":"") + "' aria-current='true'>" +
+                             "<i class='icon-gear'></i><span> Users</span>" +
+                         "</a>");
+                    }
+                }
+                <a href="@Url.Action("ProfileSettings","Settings")" id="ProfileSettings_nav" class="list-group-item list-group-item-action py-2 ripple @Html.Raw(controllerAction=="settingsprofilesettings"?"active":"")" aria-current="true">
                     <i class="icon-gears"></i><span> Profile Settings</span>
                 </a>
 

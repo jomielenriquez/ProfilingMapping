@@ -48,6 +48,7 @@ namespace ProfilingMapping.Controllers
                 }
                 LogiInModel LoginModel = new LogiInModel();
                 LoginModel.ListOfNames = NamesRepository.GetAllNames();
+                LoginModel.ListOfStatus = StatusRepository.getAllStatus();
                 ViewBag.FullName = LogiInModel.FullName;
 
                 if (RequestID == null)
@@ -120,6 +121,20 @@ namespace ProfilingMapping.Controllers
             ErrorMessage = string.Empty;
             holdRequest = new TBL_REQUEST();
             return RedirectToAction("ListScreen");
+        }
+        [HttpPost]
+        public string InsertLog(string user, string loc_lat, string loc_long, string devicename)
+        {
+            Data data = new Data();
+            TBL_REQUEST newRequest = new TBL_REQUEST();
+            newRequest.REQUESTID = new Guid();
+            newRequest.NAMEID = new Guid(user);
+            newRequest.LAT = loc_lat;
+            newRequest.LONG = loc_long;
+            newRequest.DEVICENAME = devicename;
+            string result = data.Save(newRequest, new List<string> { "REQUESTID" }, "REQUESTID");
+
+            return result;
         }
     }
 }

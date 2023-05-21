@@ -15,6 +15,20 @@ namespace ProfilingMapping.Models
                 return name.FIRSTNAME + " " + name.LASTNAME; 
             }
         }
+        public string Role {
+            get {
+                PROFILINGMAPPINGDBEntities entities = new PROFILINGMAPPINGDBEntities();
+                var name = (from names in entities.TBL_ADMIN.Where(admin => admin.ADMINID == adminID) select names).FirstOrDefault();
+                return name.TBL_TAGGING.NAME;
+            } 
+        }
+        public Guid Barangay {
+            get {
+                PROFILINGMAPPINGDBEntities entities = new PROFILINGMAPPINGDBEntities();
+                var name = (from names in entities.TBL_ADMIN.Where(admin => admin.ADMINID == adminID) select names).FirstOrDefault();
+                return name.BARANGAYID;
+            } 
+        }
         public TBL_ADMIN CurrenUserProfile { get; set; }
         public IEnumerable<TBL_NAMES> ListOfNames { get; set; }
         public TBL_NAMES SelectedNames { get; set; }
@@ -26,5 +40,8 @@ namespace ProfilingMapping.Models
         public IEnumerable<TBL_ADMIN> ListOfAdmins { get; set; }
         public TBL_ADMIN SelectedAdmin { get; set; }
         public IEnumerable<TBL_TAGGING> ListOfTaggings { get; set; }
+        public Guid SelectedRoute { get; set; }
+        public string selectedName { get; set; }
+        public IEnumerable<TBL_STATUS> ListOfStatus { get; set; }
     }
 }

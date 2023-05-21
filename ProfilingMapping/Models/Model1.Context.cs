@@ -30,5 +30,6 @@ namespace ProfilingMapping.Models
         public DbSet<TBL_BARANGAY> TBL_BARANGAY { get; set; }
         public DbSet<TBL_NAMES> TBL_NAMES { get; set; }
         public DbSet<TBL_TAGGING> TBL_TAGGING { get; set; }
+        public DbSet<TBL_STATUS> TBL_STATUS { get; set; }
     }
 }

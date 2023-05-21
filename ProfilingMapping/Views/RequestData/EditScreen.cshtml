@@ -21,7 +21,7 @@
                 <div class="form-group row margin_bottom_10">
                     <label for="Name" class="col-sm-2 col-form-label">Full Name</label>
                     <div class="col-sm-10">
-                        @* class should be form-control-plaintext when viewing *@ 
+                        @* class should be form-control-plaintext when viewing *@
                         @{
                             var Names = new List<SelectListItem>();
                             foreach (var names in Model.ListOfNames)
@@ -34,10 +34,49 @@
                 </div>
 
                 <div class="form-group row margin_bottom_10">
+                    <label for="Name" class="col-sm-2 col-form-label">Device Name</label>
+                    <div class="col-sm-10">
+                        @* class should be form-control-plaintext when viewing *@
+                        @Html.TextBoxFor(model => model.SelectedRequest.DEVICENAME, new { @class = "form-control", @id = "DEVICENAME" })
+                    </div>
+                </div>
+
+                <div class="form-group row margin_bottom_10">
+                    <label for="Name" class="col-sm-2 col-form-label">Latitude</label>
+                    <div class="col-sm-10">
+                        @* class should be form-control-plaintext when viewing *@
+                        @Html.TextBoxFor(model => model.SelectedRequest.LAT, new { @class = "form-control", @id = "LAT" })
+                    </div>
+                </div>
+
+                <div class="form-group row margin_bottom_10">
+                    <label for="Name" class="col-sm-2 col-form-label">Longitude</label>
+                    <div class="col-sm-10">
+                        @* class should be form-control-plaintext when viewing *@
+                        @Html.TextBoxFor(model => model.SelectedRequest.LONG, new { @class = "form-control", @id = "LONG" })
+                    </div>
+                </div>
+
+                <div class="form-group row margin_bottom_10">
                     <label for="Name" class="col-sm-2 col-form-label">Comment</label>
                     <div class="col-sm-10">
                         @* class should be form-control-plaintext when viewing *@
                         @Html.TextBoxFor(model => model.SelectedRequest.COMMENT, new { @class = "form-control", @id = "COMMENT" })
+                    </div>
+                </div>
+
+                <div class="form-group row margin_bottom_10 @Html.Raw(Model.SelectedRequest==null?"hidden":"")">
+                    <label for="Name" class="col-sm-2 col-form-label">Status</label>
+                    <div class="col-sm-10">
+                        @* class should be form-control-plaintext when viewing *@
+                        @{
+                            var Status = new List<SelectListItem>();
+                            foreach (var status in Model.ListOfStatus)
+                            {
+                                Status.Add(new SelectListItem { Text = status.NAME, Value = status.STATUSID.ToString() });
+                            }
+                        }
+                        @Html.DropDownListFor(model => model.SelectedRequest.STATUSID, Status, "Select Status", new { @class = "form-select", @id = "STATUSID" })
                     </div>
                 </div>
 

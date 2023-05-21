@@ -74,6 +74,23 @@
           <Property Name="CREATEDBY" Type="nvarchar" MaxLength="50" />
           <Property Name="UPDATEDDATE" Type="datetime" />
           <Property Name="UPDATEDBY" Type="nvarchar" MaxLength="50" />
+          <Property Name="DEVICENAME" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LAT" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LONG" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="STATUSID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TBL_STATUS">
+          <Key>
+            <PropertyRef Name="STATUSID" />
+          </Key>
+          <Property Name="STATUSID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="NAME" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CODE" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DESCRIPTION" Type="nvarchar" MaxLength="50" />
+          <Property Name="CREATEDDATE" Type="datetime" Nullable="false" />
+          <Property Name="CREATEDBY" Type="nvarchar" MaxLength="50" />
+          <Property Name="UPDATEDDATE" Type="datetime" />
+          <Property Name="UPDATEDBY" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="TBL_TAGGING">
           <Key>
@@ -136,11 +153,24 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TBL_STATUS_STATUSID">
+          <End Role="TBL_STATUS" Type="Self.TBL_STATUS" Multiplicity="1" />
+          <End Role="TBL_REQUEST" Type="Self.TBL_REQUEST" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_STATUS">
+              <PropertyRef Name="STATUSID" />
+            </Principal>
+            <Dependent Role="TBL_REQUEST">
+              <PropertyRef Name="STATUSID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="PROFILINGMAPPINGDBModelStoreContainer">
           <EntitySet Name="TBL_ADMIN" EntityType="Self.TBL_ADMIN" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_BARANGAY" EntityType="Self.TBL_BARANGAY" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_NAMES" EntityType="Self.TBL_NAMES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_REQUEST" EntityType="Self.TBL_REQUEST" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_STATUS" EntityType="Self.TBL_STATUS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_TAGGING" EntityType="Self.TBL_TAGGING" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_TBL_ADMIN_BARANGAYID" Association="Self.FK_TBL_ADMIN_BARANGAYID">
             <End Role="TBL_BARANGAY" EntitySet="TBL_BARANGAY" />
@@ -156,6 +186,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_TBL_REQUEST_NAMEID" Association="Self.FK_TBL_REQUEST_NAMEID">
             <End Role="TBL_NAMES" EntitySet="TBL_NAMES" />
+            <End Role="TBL_REQUEST" EntitySet="TBL_REQUEST" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_STATUS_STATUSID" Association="Self.FK_TBL_STATUS_STATUSID">
+            <End Role="TBL_STATUS" EntitySet="TBL_STATUS" />
             <End Role="TBL_REQUEST" EntitySet="TBL_REQUEST" />
           </AssociationSet>
         </EntityContainer>
@@ -200,6 +234,11 @@
           <Property Name="UPDATEDDATE" Type="DateTime" Precision="3" />
           <Property Name="UPDATEDBY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="TBL_NAMES" Relationship="PROFILINGMAPPINGDBModel.FK_TBL_REQUEST_NAMEID" FromRole="TBL_REQUEST" ToRole="TBL_NAMES" />
+          <Property Name="DEVICENAME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LAT" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LONG" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="STATUSID" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="TBL_STATUS" Relationship="PROFILINGMAPPINGDBModel.FK_TBL_STATUS_STATUSID" FromRole="TBL_REQUEST" ToRole="TBL_STATUS" />
         </EntityType>
         <EntityContainer Name="PROFILINGMAPPINGDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="TBL_ADMIN" EntityType="Self.TBL_ADMIN" />
@@ -222,6 +261,11 @@
           <AssociationSet Name="FK_TBL_ADMIN_TAGGINGID" Association="PROFILINGMAPPINGDBModel.FK_TBL_ADMIN_TAGGINGID">
             <End Role="TBL_TAGGING" EntitySet="TBL_TAGGING" />
             <End Role="TBL_ADMIN" EntitySet="TBL_ADMIN" />
+          </AssociationSet>
+          <EntitySet Name="TBL_STATUS" EntityType="PROFILINGMAPPINGDBModel.TBL_STATUS" />
+          <AssociationSet Name="FK_TBL_STATUS_STATUSID" Association="PROFILINGMAPPINGDBModel.FK_TBL_STATUS_STATUSID">
+            <End Role="TBL_STATUS" EntitySet="TBL_STATUS" />
+            <End Role="TBL_REQUEST" EntitySet="TBL_REQUEST" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="TBL_BARANGAY">
@@ -325,6 +369,32 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="TBL_STATUS">
+          <Key>
+            <PropertyRef Name="STATUSID" />
+          </Key>
+          <Property Name="STATUSID" Type="Guid" Nullable="false" />
+          <Property Name="NAME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CODE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DESCRIPTION" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CREATEDDATE" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CREATEDBY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UPDATEDDATE" Type="DateTime" Precision="3" />
+          <Property Name="UPDATEDBY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TBL_REQUEST" Relationship="PROFILINGMAPPINGDBModel.FK_TBL_STATUS_STATUSID" FromRole="TBL_STATUS" ToRole="TBL_REQUEST" />
+        </EntityType>
+        <Association Name="FK_TBL_STATUS_STATUSID">
+          <End Type="PROFILINGMAPPINGDBModel.TBL_STATUS" Role="TBL_STATUS" Multiplicity="1" />
+          <End Type="PROFILINGMAPPINGDBModel.TBL_REQUEST" Role="TBL_REQUEST" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_STATUS">
+              <PropertyRef Name="STATUSID" />
+            </Principal>
+            <Dependent Role="TBL_REQUEST">
+              <PropertyRef Name="STATUSID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -358,6 +428,10 @@
           <EntitySetMapping Name="TBL_REQUEST">
             <EntityTypeMapping TypeName="PROFILINGMAPPINGDBModel.TBL_REQUEST">
               <MappingFragment StoreEntitySet="TBL_REQUEST">
+                <ScalarProperty Name="STATUSID" ColumnName="STATUSID" />
+                <ScalarProperty Name="LONG" ColumnName="LONG" />
+                <ScalarProperty Name="LAT" ColumnName="LAT" />
+                <ScalarProperty Name="DEVICENAME" ColumnName="DEVICENAME" />
                 <ScalarProperty Name="REQUESTID" ColumnName="REQUESTID" />
                 <ScalarProperty Name="NAMEID" ColumnName="NAMEID" />
                 <ScalarProperty Name="COMMENT" ColumnName="COMMENT" />
@@ -416,6 +490,20 @@
                 <ScalarProperty Name="CODE" ColumnName="CODE" />
                 <ScalarProperty Name="NAME" ColumnName="NAME" />
                 <ScalarProperty Name="TAGGINGID" ColumnName="TAGGINGID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_STATUS">
+            <EntityTypeMapping TypeName="PROFILINGMAPPINGDBModel.TBL_STATUS">
+              <MappingFragment StoreEntitySet="TBL_STATUS">
+                <ScalarProperty Name="UPDATEDBY" ColumnName="UPDATEDBY" />
+                <ScalarProperty Name="UPDATEDDATE" ColumnName="UPDATEDDATE" />
+                <ScalarProperty Name="CREATEDBY" ColumnName="CREATEDBY" />
+                <ScalarProperty Name="CREATEDDATE" ColumnName="CREATEDDATE" />
+                <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+                <ScalarProperty Name="CODE" ColumnName="CODE" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="STATUSID" ColumnName="STATUSID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

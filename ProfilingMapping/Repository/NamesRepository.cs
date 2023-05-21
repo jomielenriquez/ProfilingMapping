@@ -14,6 +14,12 @@ namespace ProfilingMapping.Repository
             var names = from entnames in entities.TBL_NAMES select entnames;
             return (IEnumerable<TBL_NAMES>)names;
         }
+        public static IEnumerable<TBL_NAMES> GetAllNamesUsingBarangayID(Guid? BarangayID)
+        {
+            PROFILINGMAPPINGDBEntities entities = new PROFILINGMAPPINGDBEntities();
+            var names = from entnames in entities.TBL_NAMES.Where(row => row.BARANGAYID == BarangayID) select entnames;
+            return (IEnumerable<TBL_NAMES>)names;
+        }
 
         public static TBL_NAMES GetName(Guid? NameID)
         {
