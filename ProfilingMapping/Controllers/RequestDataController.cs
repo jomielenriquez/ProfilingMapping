@@ -123,18 +123,40 @@ namespace ProfilingMapping.Controllers
             return RedirectToAction("ListScreen");
         }
         [HttpPost]
-        public string InsertLog(string user, string loc_lat, string loc_long, string devicename)
+        public string InsertLog(string nameid, string loc_lat, string loc_long, string devicename)
         {
             Data data = new Data();
             TBL_REQUEST newRequest = new TBL_REQUEST();
             newRequest.REQUESTID = new Guid();
-            newRequest.NAMEID = new Guid(user);
+            newRequest.NAMEID = new Guid(nameid);
             newRequest.LAT = loc_lat;
             newRequest.LONG = loc_long;
             newRequest.DEVICENAME = devicename;
             string result = data.Save(newRequest, new List<string> { "REQUESTID" }, "REQUESTID");
 
             return result;
+        }
+
+        public ActionResult ViewLocation(Guid RequestID)
+        {
+            try
+            {
+                if (LogiInModel.adminID == Guid.Empty)
+                {
+                    return RedirectToAction("Login");
+                }
+                LogiInModel LoginModel = new LogiInModel();
+                LoginModel.ListOfNames = NamesRepository.GetAllNames();
+                LoginModel.ListOfStatus = StatusRepository.getAllStatus();
+                LoginModel.SelectedRequest = RequestRepository.GetRequest(RequestID);
+                ViewBag.FullName = LogiInModel.FullName;
+
+                return View(LoginModel);
+            }
+            catch
+            {
+                return RedirectToAction("Login");
+            }
         }
     }
 }
