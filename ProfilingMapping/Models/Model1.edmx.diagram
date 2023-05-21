@@ -14,6 +14,8 @@
         <EntityTypeShape EntityType="PROFILINGMAPPINGDBModel.TBL_TAGGING" Width="1.5" PointX="3.375" PointY="7" />
         <AssociationConnector Association="PROFILINGMAPPINGDBModel.FK_TBL_ADMIN_BARANGAYID" />
         <AssociationConnector Association="PROFILINGMAPPINGDBModel.FK_TBL_ADMIN_TAGGINGID" />
+        <EntityTypeShape EntityType="PROFILINGMAPPINGDBModel.TBL_STATUS" Width="1.5" PointX="5.375" PointY="7" />
+        <AssociationConnector Association="PROFILINGMAPPINGDBModel.FK_TBL_STATUS_STATUSID" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

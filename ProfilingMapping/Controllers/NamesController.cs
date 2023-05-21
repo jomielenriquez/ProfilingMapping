@@ -28,7 +28,13 @@ namespace ProfilingMapping.Controllers
 
                 LogiInModel LoginModel = new LogiInModel();
                 ViewBag.FullName = LogiInModel.FullName;
-                LoginModel.ListOfNames = NamesRepository.GetAllNames();
+                if (LoginModel.Role == "ADMIN USER") { 
+                    LoginModel.ListOfNames = NamesRepository.GetAllNames();
+                }
+                else
+                {
+                    LoginModel.ListOfNames = NamesRepository.GetAllNamesUsingBarangayID(LoginModel.Barangay);
+                }
 
                 return View(LoginModel);
             }

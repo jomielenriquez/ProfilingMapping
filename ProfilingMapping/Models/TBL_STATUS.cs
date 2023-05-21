@@ -12,21 +12,22 @@ namespace ProfilingMapping.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class TBL_REQUEST
+    public partial class TBL_STATUS
     {
-        public System.Guid REQUESTID { get; set; }
-        public System.Guid NAMEID { get; set; }
-        public string COMMENT { get; set; }
+        public TBL_STATUS()
+        {
+            this.TBL_REQUEST = new HashSet<TBL_REQUEST>();
+        }
+    
+        public System.Guid STATUSID { get; set; }
+        public string NAME { get; set; }
+        public string CODE { get; set; }
+        public string DESCRIPTION { get; set; }
         public System.DateTime CREATEDDATE { get; set; }
         public string CREATEDBY { get; set; }
         public Nullable<System.DateTime> UPDATEDDATE { get; set; }
         public string UPDATEDBY { get; set; }
-        public string DEVICENAME { get; set; }
-        public string LAT { get; set; }
-        public string LONG { get; set; }
-        public System.Guid STATUSID { get; set; }
     
-        public virtual TBL_NAMES TBL_NAMES { get; set; }
-        public virtual TBL_STATUS TBL_STATUS { get; set; }
+        public virtual ICollection<TBL_REQUEST> TBL_REQUEST { get; set; }
     }
 }

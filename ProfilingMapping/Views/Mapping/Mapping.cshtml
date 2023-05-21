@@ -7,14 +7,52 @@
 <script type="text/javascript" src="https://maps.google.com/maps/api/js?key=AIzaSyBFIcaHmn63Pfgss3u4aLltaJtDyc3QxN8&sensor=false"></script>
 
 <br />
-<div id="dvMap" style="width: 100%; height: 500px"></div>
+@{
+    var Names = new List<SelectListItem>();
+    foreach (var names in Model.ListOfNames)
+    {
+        Names.Add(new SelectListItem { Text = names.FIRSTNAME + " " + names.LASTNAME, Value = names.NAMEID.ToString()});
+    }
+}
+<div class="" style="display: inline-block; width: 100%; height:50px; position:relative">
+    @using (Html.BeginForm("SelectSpecific", "Mapping", FormMethod.Post, new { @name = "MappingForm", @style= "width:200px;marin:0; position: absolute;right: 130px;" }))
+    {
+        @Html.DropDownListFor(model => model.SelectedRoute, Names, "Select Name", new { @class = "form-select", @id = "NAMEID", @onchange = "this.form.submit();" })
+    }
+    @using (Html.BeginForm("SelectAll", "Mapping", FormMethod.Post, new { @name = "MappingForm", @style = "width:120px;marin:0; position: absolute;right: 5px;" }))
+    {
+        <button type="submit" class="btn btn-success" style="width:100%">Select All</button>
+    }
+</div>
+<br />
+<br />
+<div id="dvMap" style="width: 100%; height: 500px; border:solid 1px"></div>
 
 <script type="text/javascript">
+
     //window.onload = function () {
     //    initMap();
     //}
+    @{
+        var Users_List = new List<ProfilingMapping.Models.TBL_NAMES>();
+        foreach (var list in Model.ListOfNames)
+        {
+            Users_List.Add(
+                new ProfilingMapping.Models.TBL_NAMES
+                {
+                    NAMEID = list.NAMEID,
+                    FIRSTNAME = list.FIRSTNAME,
+                    MIDDLENAME = list.MIDDLENAME,
+                    LASTNAME = list.LASTNAME,
+                    LAT = list.LAT,
+                    LONG = list.LONG
+                }
+            );
+        }
+    }
+    var holdNames = `@Html.Raw(Json.Encode(Users_List))`;
     function initMap() {
-        @{ 
+        @{
             var javascript_code = "var ";
 
             foreach(ProfilingMapping.Models.TBL_NAMES names in Model.ListOfNames)
@@ -77,8 +115,12 @@
         //    });
         @Html.Raw(javascript_code);
 
-            // get route from A to B
-            //calculateAndDisplayRoute(directionsService, directionsDisplay, pointA, pointB);
+        // get route from A to B
+        @if (!string.IsNullOrEmpty(Model.selectedName))
+        {
+            @Html.Raw("calculateAndDisplayRoute(directionsService, directionsDisplay, CurrentUserLocation, " + Model.selectedName + ");");
+        }
+        //calculateAndDisplayRoute(directionsService, directionsDisplay, pointA, pointB);
 
     }
     function calculateAndDisplayRoute(directionsService, directionsDisplay, pointA, pointB) {

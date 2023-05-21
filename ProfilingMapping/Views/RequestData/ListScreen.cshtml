@@ -5,7 +5,7 @@
 }
 @using (Html.BeginForm("Delete", "RequestData", FormMethod.Post, new { @name = "RequestDataForm" }))
 {
-    <legend>Profiles</legend>
+    <legend>Logs</legend>
 
     <table id="table_Request" class="table table-striped" style="width:100%">
         <thead>
@@ -13,8 +13,12 @@
                 <th style="width: 25px;">
                     @*<input type="checkbox" id="AreChecked" />*@
                 </th>
-                <th>Full Name</th>
+                <th>Name</th>
+                <th>Device Name</th>
+                <th>Location</th>
+                <th>Status</th>
                 <th>Comment</th>
+                <th>Date & Time</th>
                 <th class="hidden">ID</th>
             </tr>
         </thead>
@@ -24,7 +28,11 @@
                 <tr>
                     <td><input type="checkbox" name="AreChecked" value="@request.REQUESTID" /></td>
                     <td><a href="@Url.Action("EditScreen","RequestData", new { RequestID = (request.REQUESTID)})">@(request.TBL_NAMES.FIRSTNAME + " " + request.TBL_NAMES.LASTNAME)</a></td>
+                    <td>@request.DEVICENAME</td>
+                    <td>@request.LAT @request.LONG</td>
+                    <td>@Html.Raw(request.TBL_STATUS.NAME=="NEW"?"<span class=\"badge bg-danger\">NEW</span>":"<span class=\"badge bg-success\">COMPLETED</span>")</td>
                     <td>@request.COMMENT</td>
+                    <td>@request.CREATEDDATE</td>
                     <td class="hidden">@request.REQUESTID</td>
                 </tr>
             }
