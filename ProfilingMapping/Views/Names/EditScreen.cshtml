@@ -42,6 +42,19 @@
                 </div>
 
                 <div class="form-group row margin_bottom_10">
+                    <label for="Name" class="col-sm-2 col-form-label">Barangay</label>
+                    <div class="col-sm-10">
+                        @{
+                            var GenderList = new List<SelectListItem>();
+                            GenderList.Add(new SelectListItem { Text = "MALE", Value = "MALE" });
+                            GenderList.Add(new SelectListItem { Text = "FEMALE", Value = "FEMALE" });
+                        }
+                        @* class should be form-control-plaintext when viewing *@
+                        @Html.DropDownListFor(model => model.SelectedNames.GENDER, GenderList, "Select Gender", new { @class = "form-select", @id = "GENDER" })
+                    </div>
+                </div>
+
+                <div class="form-group row margin_bottom_10">
                     <label for="Name" class="col-sm-2 col-form-label">Birthdate</label>
                     <div class="col-sm-10">
                         @* class should be form-control-plaintext when viewing *@
@@ -108,8 +121,8 @@
                 <script type="text/javascript">
                     var Latitude = 0, Longitude = 0, isHasLocation = false;
                     window.onload = function () {
-                        
-                        @{ 
+
+                        @{
                             var Latitude = "14.0737223";
                             var Longitude = "121.1408276";
                             var isHasLocation = false;
@@ -143,7 +156,7 @@
                     function initLocationPicker() {
                         $("#LAT").val("");
                         $("#LONG").val("");
-                        
+
                         if (isHasLocation) {
                             setLocationStatusToSelected(Latitude, Longitude);
                             isHasLocation = false;

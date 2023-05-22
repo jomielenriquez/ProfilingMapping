@@ -36,6 +36,7 @@ namespace ProfilingMapping.Models
         public string LAT { get; set; }
         public string LONG { get; set; }
         public System.Guid BARANGAYID { get; set; }
+        public string GENDER { get; set; }
     
         public virtual TBL_BARANGAY TBL_BARANGAY { get; set; }
         public virtual ICollection<TBL_REQUEST> TBL_REQUEST { get; set; }
