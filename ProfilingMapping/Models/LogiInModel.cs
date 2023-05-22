@@ -61,5 +61,16 @@ namespace ProfilingMapping.Models
         public Guid SelectedRoute { get; set; }
         public string selectedName { get; set; }
         public IEnumerable<TBL_STATUS> ListOfStatus { get; set; }
+        public bool Minor { get; set; }
+        public bool YoungAdults { get; set; }
+        public bool MiddleAge { get; set; }
+        public bool Senior { get; set; }
+        public string GenderFilter { get; set; }
+        public int cntMinor { get; set; }
+        public int cntYoungAdults { get; set; }
+        public int cntMiddleAge { get; set; }
+        public int cntSenior { get; set; }
+        public int cntMale { get; set; }
+        public int cntFemale { get; set; }
     }
 }

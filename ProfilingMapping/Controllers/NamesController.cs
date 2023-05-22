@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 
 namespace ProfilingMapping.Controllers
 {
@@ -12,7 +13,11 @@ namespace ProfilingMapping.Controllers
     {
         static string ErrorMessage = string.Empty;
         static TBL_NAMES holdNames = new TBL_NAMES();
-
+        static bool staticMinor = true;
+        static bool staticYoungAdults = true;
+        static bool staticMiddleAge = true;
+        static bool staticSenior = true;
+        static string staticGenderFilter = "MALE & FEMALE";
         public ActionResult ListScreen()
         {
             try
@@ -27,6 +32,11 @@ namespace ProfilingMapping.Controllers
                 }
 
                 LogiInModel LoginModel = new LogiInModel();
+                LoginModel.Minor = staticMinor;
+                LoginModel.YoungAdults = staticYoungAdults;
+                LoginModel.MiddleAge = staticMiddleAge;
+                LoginModel.Senior = staticSenior;
+                LoginModel.GenderFilter = staticGenderFilter;
                 ViewBag.FullName = LogiInModel.FullName;
                 if (LoginModel.Role == "ADMIN USER") { 
                     LoginModel.ListOfNames = NamesRepository.GetAllNames();
@@ -125,6 +135,16 @@ namespace ProfilingMapping.Controllers
             }
             ErrorMessage = string.Empty;
             holdNames = new TBL_NAMES();
+            return RedirectToAction("ListScreen");
+        }
+        [HttpPost]
+        public ActionResult NamesFilter(bool Minor, bool YoungAdults, bool MiddleAge, bool Senior, string GenderFilter)
+        {
+            staticMinor = Minor;
+            staticYoungAdults = YoungAdults;
+            staticMiddleAge = MiddleAge;
+            staticSenior = Senior;
+            staticGenderFilter = GenderFilter;
             return RedirectToAction("ListScreen");
         }
     }
