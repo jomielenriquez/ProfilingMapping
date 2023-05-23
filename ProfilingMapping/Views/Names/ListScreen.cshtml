@@ -169,6 +169,7 @@
                 <th>Age</th>
                 <th>Gender</th>
                 <th>Physical Address</th>
+                <th>Created Date</th>
                 <th class="hidden">ID</th>
             </tr>
         </thead>
@@ -183,6 +184,7 @@
                         <td>@names.AGE</td>
                         <td>@names.GENDER</td>
                         <td>@names.STREET @names.SUBDIVISION @names.TBL_BARANGAY.NAME @names.CITY @names.PROVINCE</td>
+                        <td>@names.CREATEDDATE</td>
                         <td class="hidden">@names.NAMEID</td>
                     </tr>
                 }
@@ -191,11 +193,38 @@
     </table>
 
     <p class="bs-component">
-        <a class="btn btn-primary" href="@Url.Action("EditScreen","Names")"><i class="icon-plus"></i>  Add</a>
+        <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="reset()"><i class="icon-plus"></i>  Add</a>
         <button type="submit" class="btn btn-danger"><i class="icon-trash"></i>  Delete</button>
     </p>
 }
 <br />
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">How we use Information</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Do you agree that we process your personal information?
+                <br />
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckIAgree">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        I agree
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <a id="btnContinue" class="btn btn-primary disabled" href="@Url.Action("EditScreen","Names")"> Continue</a>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <script>
     $(document).ready(function () {
@@ -207,5 +236,20 @@
             "pagingType": $(".container-fluid").width() <= 480 ? "simple" : "simple_numbers"
         });
     });
+    
+    $("#flexCheckIAgree").change(function () {
+        if ($("#btnContinue").hasClass("disabled") && $(this).is(":checked")) {
+            $("#btnContinue").removeClass("disabled")
+        }
+        if (!$("#btnContinue").hasClass("disabled") && !$(this).is(":checked")) {
+            $("#btnContinue").addClass("disabled")
+        }
+    })
+    function reset() {
+        $("#flexCheckIAgree").prop("checked", false);
+        if (!$("#btnContinue").hasClass("disabled")) {
+            $("#btnContinue").addClass("disabled")
+        }
+    }
 </script>
 
