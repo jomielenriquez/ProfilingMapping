@@ -1,4 +1,5 @@
 ﻿using ProfilingMapping.Models;
+using ProfilingMapping.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,8 @@ namespace ProfilingMapping.Controllers
                 return RedirectToAction("../Login/Login");
             }
             LogiInModel LoginModel = new LogiInModel();
+            LoginModel.PWDCount = NamesRepository.CountAllNames();
+            LoginModel.UserCount = SettingsRepository.CountAdmins();
             ViewBag.FullName = LogiInModel.FullName;
             return View(LoginModel);
         }

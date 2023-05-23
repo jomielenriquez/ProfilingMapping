@@ -72,5 +72,7 @@ namespace ProfilingMapping.Models
         public int cntSenior { get; set; }
         public int cntMale { get; set; }
         public int cntFemale { get; set; }
+        public int PWDCount { get; set; }
+        public int UserCount { get; set; }
     }
 }

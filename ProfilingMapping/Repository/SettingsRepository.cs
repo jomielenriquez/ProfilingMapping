@@ -22,5 +22,12 @@ namespace ProfilingMapping.Repository
 
             return (IEnumerable<TBL_ADMIN>)profile;
         }
+        public static int CountAdmins()
+        {
+            PROFILINGMAPPINGDBEntities entities = new PROFILINGMAPPINGDBEntities();
+            var profile = from currentprofile in entities.TBL_ADMIN select currentprofile;
+
+            return profile.Count();
+        }
     }
 }
