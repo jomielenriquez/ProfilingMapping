@@ -2,23 +2,32 @@
 @{
     ViewBag.Title = "Home Page";
 }
-
-<main>
-    <section class="row" aria-labelledby="aspnetTitle">
-        <h1 id="title">Profiling and Mapping System</h1>
-        <p class="lead">Profiling and Mapping System is created using HTML, CSS and JavaScript.</p>
-    </section>
-    <!--<section class="row" aria-labelledby="aspnetTitle">
-        <h1 id="title">Profiling and Mapping</h1>-->
-    @*<p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>*@
-    <!--</section>
-
-    <ul class="list-group col-sm-5">
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-            <a href="@Url.Action("ListScreen","CourseSection")"><i class="icon-list"></i> Profiles</a>
-        </li>
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-            <a href="@Url.Action("ListScreen","CourseSection")"><i class="icon-bookmark"></i> Request</a>
-        </li>
-    </ul>-->
-</main>
+<br />
+<h1>Dashboard</h1>
+<div class="row">
+    <div class="col-4">
+        <div class="card text-white bg-success mb-3" style="max-width: 20rem;">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-5">
+                        <p style="font-size:70px"><b>@Model.PWDCount</b></p>
+                        <p>Total PWSN</p>
+                    </div>
+                    <div class="col-2">
+                    </div>
+                    <div class="col-5">
+                        <img src="https://pngimg.com/d/disabled_PNG92.png" width="120px" style="float: right; filter: invert(71%) sepia(49%) saturate(400%) hue-rotate(111deg) brightness(105%) contrast(89%);"/>
+                    </div>
+                </div>
+                <h6 class="card-footer text-center"><a href="@Url.Action("ListScreen","Names")" style="color:white">More info <i class="icon-circle-arrow-right"></i></a></h6>
+            </div>
+        </div>
+    </div>
+    @{ 
+        if(Model.Role == "ADMIN USER")
+        {
+            @Html.Raw("<div class='col-4'>\r\n        <div class='card bg-warning mb-3' style='max-width: 20rem;'>\r\n            <div class='card-body'>\r\n                <div class='row'>\r\n                    <div class='col-5'>\r\n                        <p style='font-size:70px'><b>"+@Model.UserCount+"</b></p>\r\n                        <p>Total User</p>\r\n                    </div>\r\n                    <div class='col-2'>\r\n                    </div>\r\n                    <div class='col-5'>\r\n                        <i class='icon-user' style='font-size: 140px; float: right; color: #f1c176 !important'></i>\r\n                    </div>\r\n                </div>\r\n                <h6 class='card-footer text-center'><a href='"+ @Url.Action("ListScreen", "Admin") + "' style='color:black'>More info <i class='icon-circle-arrow-right'></i></a></h6>\r\n            </div>\r\n        </div>\r\n    </div>")
+        }
+    }
+    
+</div>

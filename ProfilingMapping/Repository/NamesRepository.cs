@@ -27,5 +27,11 @@ namespace ProfilingMapping.Repository
             var names = (from entnames in entities.TBL_NAMES.Where(name=> name.NAMEID == NameID) select entnames).FirstOrDefault();
             return (TBL_NAMES)names;
         }
+        public static int CountAllNames()
+        {
+            PROFILINGMAPPINGDBEntities entities = new PROFILINGMAPPINGDBEntities();
+            var names = from entnames in entities.TBL_NAMES select entnames;
+            return names.Count();
+        }
     }
 }
