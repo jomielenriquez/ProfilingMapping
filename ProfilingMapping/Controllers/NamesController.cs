@@ -18,6 +18,7 @@ namespace ProfilingMapping.Controllers
         static bool staticMiddleAge = true;
         static bool staticSenior = true;
         static string staticGenderFilter = "MALE & FEMALE";
+        static Guid staticFilterBarangay = Guid.Empty;
         public ActionResult ListScreen()
         {
             try
@@ -37,9 +38,18 @@ namespace ProfilingMapping.Controllers
                 LoginModel.MiddleAge = staticMiddleAge;
                 LoginModel.Senior = staticSenior;
                 LoginModel.GenderFilter = staticGenderFilter;
+                LoginModel.BarangayList = BarangayRepository.GetAllBarangays();
                 ViewBag.FullName = LogiInModel.FullName;
-                if (LoginModel.Role == "ADMIN USER") { 
-                    LoginModel.ListOfNames = NamesRepository.GetAllNames();
+                if (LoginModel.Role == "ADMIN USER") {
+                    if (staticFilterBarangay != Guid.Empty)
+                    {
+                        LoginModel.FilterBarangay = staticFilterBarangay;
+                        LoginModel.ListOfNames = NamesRepository.GetAllNamesUsingBarangayID(staticFilterBarangay);
+                    }
+                    else
+                    {
+                        LoginModel.ListOfNames = NamesRepository.GetAllNames();
+                    }
                 }
                 else
                 {
@@ -145,6 +155,19 @@ namespace ProfilingMapping.Controllers
             staticMiddleAge = MiddleAge;
             staticSenior = Senior;
             staticGenderFilter = GenderFilter;
+            return RedirectToAction("ListScreen");
+        }
+        [HttpPost]
+        public ActionResult BarangayFilter(Guid? FilterBarangay)
+        {
+            if (FilterBarangay == null)
+            {
+                staticFilterBarangay = Guid.Empty;
+            }
+            else
+            {
+                staticFilterBarangay = (Guid)FilterBarangay;
+            }
             return RedirectToAction("ListScreen");
         }
     }

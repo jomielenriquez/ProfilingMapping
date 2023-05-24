@@ -42,8 +42,26 @@
     }
 }
 <legend>Profiles</legend>
+<br />
+@{
+    var Barangay = new List<SelectListItem>();
+    foreach (var barangay in Model.BarangayList)
+    {
+        Barangay.Add(new SelectListItem { Text = barangay.NAME, Value = barangay.BARANGAYID.ToString() });
+    }
+}
+
+<div class="" style="display: inline-block; width: 100%; height:50px; position:relative">
+    @if(Model.Role == "ADMIN USER"){
+        using (Html.BeginForm("BarangayFilter", "Names", FormMethod.Post, new { @name = "MappingForm", @style = "width:200px;marin:0; position: absolute;right: 130px;" }))
+        {
+            @Html.DropDownListFor(model => model.FilterBarangay, Barangay, "Select Barangay", new { @class = "form-select", @id = "FilterBarangay", @onchange = "this.form.submit();" })
+        }
+    }
+</div>
+
 <div class="row">
-    <div class="col-5">
+    <div class="col-6">
 
         <div class="card" style="">
             <div class="card-header">Filter</div>
@@ -236,7 +254,7 @@
             "pagingType": $(".container-fluid").width() <= 480 ? "simple" : "simple_numbers"
         });
     });
-    
+
     $("#flexCheckIAgree").change(function () {
         if ($("#btnContinue").hasClass("disabled") && $(this).is(":checked")) {
             $("#btnContinue").removeClass("disabled")

@@ -74,5 +74,6 @@ namespace ProfilingMapping.Models
         public int cntFemale { get; set; }
         public int PWDCount { get; set; }
         public int UserCount { get; set; }
+        public Guid FilterBarangay { get; set; }
     }
 }
