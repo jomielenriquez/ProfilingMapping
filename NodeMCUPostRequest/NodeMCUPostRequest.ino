@@ -6,13 +6,14 @@ TinyGPSPlus gps;  // The TinyGPS++ object
 SoftwareSerial ss(4, 5); // The serial connection to the GPS device
 float latitude , longitude;
 int year , month , date, hour , minute , second;
-String date_str , time_str , lat_str="14.083027", lng_str="121.125298";
+String date_str , time_str , lat_str="", lng_str="";
+// String date_str , time_str , lat_str="14.083027", lng_str="121.125298";
 int pm;
 
 const char *ssid =  "JomielPogi_2.4";     // replace with your wifi ssid and wpa2 key
 const char *pass =  "Irtcitmahs121625";
 const char *DeviceName =  "Testing 5/25";
-String MobileNumber =  "AT+CMGS=\"+639953637231\"\r";
+String MobileNumber =  "+639953637231";
 const char* server = "http://profilingmapping.somee.com/RequestData/InsertLog";
 String nameid = "79D7658F-B190-496E-86FE-20CDB7F07588";
 
@@ -34,7 +35,10 @@ int Button_State_HTTPS = 0;
 //VCC => ARDUINO 5V
 //GND => ARDUINO GND
 //RX  => NODEMCU TX (GPIO1)
-//RX  => NODEMCU RX (GPIO3)
+//TX  => NODEMCU RX (GPIO3)
+
+//Common Ground
+//ESP32 GND => Arduino GND
 
 //Push button 1
 //Line 1 => ESP32 GND
@@ -191,11 +195,14 @@ void sendPostRequest(){
 }
 
 void SendMessage(){
+  char quote=34;
+  String command =  "AT+CMGS=";
+  mySerial.println("AT");
   mySerial.println("AT+CMGF=1");    //Sets the GSM Module in Text Mode
   delay(1000);  // Delay of 1 second
-  mySerial.println(MobileNumber); // Replace x with mobile number
+  mySerial.println(command + quote + MobileNumber + quote); // Replace x with mobile number
   delay(1000);
-  String loclink="maps/place/",comma=",";
+  String loclink="location is google . com/maps/place/",comma=",";
   // String body = "maps.google.com/?q= "+lat_str+","+lng_str;
   mySerial.print(loclink);
   mySerial.print(lat_str);
